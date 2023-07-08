@@ -1,5 +1,6 @@
 using CodeBase.Infrastructure.Foundation;
 using CodeBase.Infrastructure.StateMachine.States;
+using CodeBase.Logic.Camera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,5 +36,10 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
 
         public void Exit() => 
             Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+        
+        private static void CameraFollow(GameObject hero)
+        {
+            if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
+        }
     }
 }
