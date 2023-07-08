@@ -2,6 +2,6 @@ namespace CodeBase.StaticData
 {
     public static class Constants
     {
-        public const int BOARD_SIZE = 3;
+        public const float CAMERA_SPEED = 25f;
     }
 }

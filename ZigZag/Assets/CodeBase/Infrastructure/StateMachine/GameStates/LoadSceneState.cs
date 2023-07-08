@@ -2,6 +2,7 @@ using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Foundation;
 using CodeBase.Infrastructure.StateMachine.States;
 using CodeBase.Logic.Camera;
+using CodeBase.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,8 +35,10 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
 
         private void InitGameWorld()
         {
+            GameObject hero = _factory.CreatePlayer();
+            CameraFollow(hero);
+            
             _factory.CreateInitPlatform();
-            _factory.CreatePlayer();
             _factory.CreateBlock();
             _factory.CreateDiamond();
             Debug.Log("Game World INIT");
