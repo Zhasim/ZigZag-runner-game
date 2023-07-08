@@ -1,5 +1,6 @@
 using CodeBase.DI;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Foundation;
 using CodeBase.Infrastructure.Services.RegistrationService;
 using CodeBase.Infrastructure.StateMachine.States;
@@ -43,6 +44,8 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             _services.RegisterSingle<IGlobalStateMachine>(_stateMachine);
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IRegistrationService>(new RegistrationService());
+            
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
         }
     }
 }
