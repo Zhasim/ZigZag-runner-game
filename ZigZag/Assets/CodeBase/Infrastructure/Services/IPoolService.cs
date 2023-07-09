@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CodeBase.DI;
 using UnityEngine;
 
@@ -5,6 +6,12 @@ namespace CodeBase.Infrastructure.Services
 {
     public interface IPoolService : IService
     {
-        GameObject GetFreeElement();
+        List<GameObject> BlocksPool { get; }
+        List<GameObject> DiamondsPool { get; }
+        GameObject GetFreeBlock();
+        GameObject GetFreeDiamond();
+        void CleanUp();
+        void AddBlockToPool(GameObject obj);
+        void AddDiamondToPool(GameObject obj);
     }
 }

@@ -1,5 +1,6 @@
-using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Foundation;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.StateMachine.States;
 using CodeBase.Logic.Camera;
 using CodeBase.StaticData;
@@ -10,15 +11,18 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
 {
     public class LoadSceneState :  IPayloadState<string>
     {
-        private readonly IGlobalStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
+        private readonly IGlobalStateMachine _stateMachine;
         private readonly IGameFactory _factory;
+        private readonly IPoolService _poolService;
+        
 
-        public LoadSceneState(IGlobalStateMachine stateMachine, SceneLoader sceneLoader, IGameFactory factory)
+        public LoadSceneState(IGlobalStateMachine stateMachine, SceneLoader sceneLoader, IGameFactory factory, IPoolService poolService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _factory = factory;
+            _poolService = poolService;
         }
 
         public void Enter(string sceneName)
@@ -41,6 +45,7 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             _factory.CreateInitPlatform();
             _factory.CreateBlock();
             _factory.CreateDiamond();
+            _factory.CreateBlockPool();
             Debug.Log("Game World INIT");
         }
 

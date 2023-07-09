@@ -1,7 +1,7 @@
 using CodeBase.DI;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Factory
+namespace CodeBase.Infrastructure.Services.Factory
 {
     public interface IGameFactory : IService
     {
@@ -9,5 +9,6 @@ namespace CodeBase.Infrastructure.Factory
         GameObject CreateInitPlatform();
         GameObject CreateDiamond();
         GameObject CreateBlock();
+        void CreateBlockPool();
     }
 }

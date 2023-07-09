@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using CodeBase.DI;
-using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Foundation;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.StateMachine.GameStates;
 using CodeBase.Infrastructure.StateMachine.States;
 
@@ -19,7 +20,7 @@ namespace CodeBase.Infrastructure.StateMachine
         {
             [typeof(BootsTrapState)] = new BootsTrapState(this, services, sceneLoader),
             [typeof(LoadProgressState)] = new LoadProgressState(),
-            [typeof(LoadSceneState)] = new LoadSceneState(this, sceneLoader, services.Single<IGameFactory>()),
+            [typeof(LoadSceneState)] = new LoadSceneState(this, sceneLoader, services.Single<IGameFactory>(), services.Single<IPoolService>()),
             [typeof(GameLoopState)] = new GameLoopState(),
         };
     }
