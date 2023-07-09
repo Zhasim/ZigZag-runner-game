@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CodeBase.DI;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services
+namespace CodeBase.Infrastructure.Services.Pool
 {
     public interface IPoolService : IService
     {

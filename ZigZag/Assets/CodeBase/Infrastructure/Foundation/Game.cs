@@ -1,5 +1,6 @@
 using CodeBase.DI;
 using CodeBase.Infrastructure.StateMachine;
+using CodeBase.Infrastructure.StateMachine.Machine;
 
 namespace CodeBase.Infrastructure.Foundation
 {

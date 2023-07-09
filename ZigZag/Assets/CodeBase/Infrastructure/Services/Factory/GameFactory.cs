@@ -1,5 +1,7 @@
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.Services.Pool;
 using CodeBase.Infrastructure.Services.RegistrationService;
+using CodeBase.Logic.TileGeneration;
 using CodeBase.StaticData;
 using UnityEngine;
 
@@ -29,8 +31,15 @@ namespace CodeBase.Infrastructure.Services.Factory
 
         public GameObject CreateBlock() => 
             _assetProvider.Instantiate(AssetPath.BLOCK);
+        
+        public GameObject CreateTileGenerator()
+        {
+            GameObject tileGenerator = _assetProvider.Instantiate(AssetPath.TILE_GENERATOR);
+            tileGenerator.GetComponent<TileGenerator>().Construct(_poolService);
+            return tileGenerator;
+        }
 
-        public void CreateBlockPool()
+        public void CreateBlocksPool()
         {
             for (int i = 0; i < Constants.BLOCKS_POOL_COUNT; i++)
             {
@@ -42,6 +51,17 @@ namespace CodeBase.Infrastructure.Services.Factory
                 block.gameObject.SetActive(false);
             }
         }
-        
+        public void CreateDiamondsPool()
+        {
+            for (int i = 0; i < Constants.DIAMONDS_POOL_COUNT; i++)
+            {
+                GameObject diamond = CreateDiamond();
+                
+                _registrationService.RegisterWatchers(diamond);
+                _poolService.DiamondsPool.Add(diamond);
+                
+                diamond.gameObject.SetActive(false);
+            }
+        }
     }
 }

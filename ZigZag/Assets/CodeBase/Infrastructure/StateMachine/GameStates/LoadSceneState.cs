@@ -1,9 +1,10 @@
 using CodeBase.Infrastructure.Foundation;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
+using CodeBase.Infrastructure.Services.Pool;
+using CodeBase.Infrastructure.StateMachine.Machine;
 using CodeBase.Infrastructure.StateMachine.States;
 using CodeBase.Logic.Camera;
-using CodeBase.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -45,7 +46,11 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             _factory.CreateInitPlatform();
             _factory.CreateBlock();
             _factory.CreateDiamond();
-            _factory.CreateBlockPool();
+            
+            _factory.CreateBlocksPool();
+            _factory.CreateDiamondsPool();
+
+            _factory.CreateTileGenerator();            
             Debug.Log("Game World INIT");
         }
 

@@ -2,21 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services
+namespace CodeBase.Infrastructure.Services.Pool
 {
     public class PoolService : IPoolService
     {
         public List<GameObject> BlocksPool { get; } = new();
         public List<GameObject> DiamondsPool { get; } = new();
         
-
         public GameObject GetFreeBlock()
         {
             if (HasFreeElement(out GameObject element, BlocksPool))
                 return element;
             
-            // PoolExpansion(BlocksPool);
-            // return AddObjectToPool();
             throw new Exception($"There is no free element in pool of type Block");
         }
         public GameObject GetFreeDiamond()
@@ -24,8 +21,6 @@ namespace CodeBase.Infrastructure.Services
             if (HasFreeElement(out GameObject element, DiamondsPool))
                 return element;
             
-            // PoolExpansion(DiamondsPool);
-            // return AddObjectToPool();
             throw new Exception($"There is no free element in pool of type Diamond");
         }
 
@@ -50,12 +45,6 @@ namespace CodeBase.Infrastructure.Services
             return false;
         }
         
-        // private void PoolExpansion(List<GameObject> list)
-        // {
-        //     for (int i = 0; i < list.Count * Constants.POOL_MULTIPLIER; i++)
-        //         AddObjectToPool();
-        // }
-
         public void AddBlockToPool(GameObject obj)
         {
             obj.gameObject.SetActive(false);

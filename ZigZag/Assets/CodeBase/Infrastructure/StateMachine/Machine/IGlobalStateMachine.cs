@@ -1,7 +1,7 @@
 using CodeBase.DI;
 using CodeBase.Infrastructure.StateMachine.States;
 
-namespace CodeBase.Infrastructure.StateMachine
+namespace CodeBase.Infrastructure.StateMachine.Machine
 {
     public interface IGlobalStateMachine : IService
     {

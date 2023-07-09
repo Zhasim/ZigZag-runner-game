@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using CodeBase.DI;
 using CodeBase.Infrastructure.Foundation;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
+using CodeBase.Infrastructure.Services.Pool;
 using CodeBase.Infrastructure.StateMachine.GameStates;
 using CodeBase.Infrastructure.StateMachine.States;
 
-namespace CodeBase.Infrastructure.StateMachine
+namespace CodeBase.Infrastructure.StateMachine.Machine
 {
     public class GlobalStateMachine : IGlobalStateMachine
     {

@@ -1,22 +1,23 @@
-using CodeBase.DI;
 using CodeBase.Infrastructure.Services;
-using CodeBase.Infrastructure.Services.Factory;
-using CodeBase.StaticData;
+using CodeBase.Infrastructure.Services.Pool;
 using UnityEngine;
 
 namespace CodeBase.Logic.TileGeneration
 {
     public class TileGenerator : MonoBehaviour
     {
-        private float _blockSize;
-        private Vector3 _lastPos;
-        
-        private readonly IGameFactory _factory;
-        private readonly ServiceLocator _serviceLocator;
+        private IPoolService _poolService;
 
-        private void Start()
-        {
-        }
-        
+        public void Construct(IPoolService poolService) => 
+             _poolService = poolService;
+
+        private void Update()
+         {
+             if (Input.GetKeyDown(KeyCode.A))
+             {
+                 _poolService.GetFreeBlock();
+                 Debug.Log("Tried get element");
+             }
+         }
     }
 }
