@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Logic.Camera
 {
@@ -38,22 +37,5 @@ namespace CodeBase.Logic.Camera
             
             return followingPosition;
         }
-        /*
-        [SerializeField] private Transform _target;
-        [SerializeField] private float _speed;
-        [SerializeField] private Vector3 _offset;
-
-        public void Construct(GameObject target, float speed)
-        {
-            _target = target.transform;
-            _speed = speed;
-            _offset = transform.position - _target.position;
-        }
-        private void LateUpdate()
-        {
-            if (_target == null)
-                return;
-            transform.position = Vector3.Lerp(this.transform.position, _target.position + _offset, _speed * Time.deltaTime);
-        }*/
     }
 }

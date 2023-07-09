@@ -1,3 +1,4 @@
+using CodeBase.Entity;
 using CodeBase.Infrastructure.AssetManagement;
 using UnityEngine;
 
@@ -23,5 +24,6 @@ namespace CodeBase.Infrastructure.Factory
 
         public GameObject CreateBlock() => 
             _assetProvider.Instantiate(AssetPath.BLOCK);
+        
     }
 }
