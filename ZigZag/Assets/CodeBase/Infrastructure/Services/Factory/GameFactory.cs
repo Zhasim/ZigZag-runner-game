@@ -11,24 +11,14 @@ namespace CodeBase.Infrastructure.Services.Factory
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IRegistrationService _registrationService;
-        // private readonly IPoolService _poolService;
-
-        private readonly IPoolNewService _blockPool;
-        private readonly IPoolNewService _diamondPool;
+        private readonly IPoolService _poolService;
         
-        public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolNewService blockPool, IPoolNewService diamondPool)
+        public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolService poolService)
         {
             _assetProvider = assetProvider;
             _registrationService = registrationService;
-            _blockPool = blockPool;
-            _diamondPool = diamondPool;
+            _poolService = poolService;
         }
-        // public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolService poolService)
-        // {
-        //     _assetProvider = assetProvider;
-        //     _registrationService = registrationService;
-        //     _poolService = poolService;
-        // }
 
         public GameObject CreatePlayer() => 
             _assetProvider.Instantiate(AssetPath.PLAYER);
@@ -45,7 +35,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         public GameObject CreateTileGenerator()
         {
             GameObject tileGenerator = _assetProvider.Instantiate(AssetPath.TILE_GENERATOR);
-            tileGenerator.GetComponent<TileGenerator>().Construct(_blockPool, _diamondPool);
+            tileGenerator.GetComponent<TileGenerator>().Construct(_poolService);
             return tileGenerator;
         }
 
@@ -56,11 +46,12 @@ namespace CodeBase.Infrastructure.Services.Factory
                 GameObject block = CreateBlock();
                 
                 _registrationService.RegisterWatchers(block);
-                _blockPool.AddElementToPool(block);
+                _poolService.AddBlockToPool(block);
                 
                 block.gameObject.SetActive(false);
             }
         }
+
         public void CreateDiamondsPool()
         {
             for (int i = 0; i < Constants.DIAMONDS_POOL_COUNT; i++)
@@ -68,7 +59,7 @@ namespace CodeBase.Infrastructure.Services.Factory
                 GameObject diamond = CreateDiamond();
                 
                 _registrationService.RegisterWatchers(diamond);
-                _diamondPool.AddElementToPool(diamond);
+                _poolService.AddDiamondToPool(diamond);
                 
                 diamond.gameObject.SetActive(false);
             }

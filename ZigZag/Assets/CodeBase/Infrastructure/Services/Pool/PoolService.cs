@@ -4,28 +4,46 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Pool
 {
-    public class PoolService : IPoolNewService
+    public class PoolService : IPoolService
     {
-        public List<GameObject> pool { get; } = new();
+        public List<GameObject> BlocksPool { get; } = new();
+        public List<GameObject> DiamondsPool { get; } = new();
         
-        public GameObject GetFreeElement()
+        public GameObject GetFreeBlock()
         {
-            if (HasFreeElement(out GameObject element))
+            if (HasFreeElement(out GameObject element, BlocksPool))
                 return element;
             
             throw new Exception($"There is no free element in pool of type Block");
         }
 
-        public void AddElementToPool(GameObject element)
+        public GameObject GetFreeDiamond()
         {
-            element.gameObject.SetActive(false);
-            pool.Add(element);
+            if (HasFreeElement(out GameObject element, DiamondsPool))
+                return element;
+            
+            throw new Exception($"There is no free element in pool of type Block");
         }
 
-        public void CleanUp() => 
-            pool.Clear();
+        public void CleanUp()
+        {
+            BlocksPool.Clear();
+            DiamondsPool.Clear();
+        }
 
-        private bool HasFreeElement(out GameObject element)
+        public void AddBlockToPool(GameObject element)
+        {
+            element.gameObject.SetActive(false);
+            BlocksPool.Add(element);
+        }
+
+        public void AddDiamondToPool(GameObject element)
+        {
+            element.gameObject.SetActive(false);
+            DiamondsPool.Add(element);
+        }
+
+        private bool HasFreeElement(out GameObject element, List<GameObject> pool)
         {
             foreach (GameObject obj in pool)
             {
