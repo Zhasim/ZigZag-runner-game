@@ -1,3 +1,5 @@
+using System.Collections;
+using CodeBase.Entity;
 using CodeBase.Infrastructure.Services.Pool;
 using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.StaticData;
@@ -9,9 +11,11 @@ namespace CodeBase.Logic.TileGeneration
     {
         [SerializeField] private int blockSize;
         [SerializeField] private int initBlocksCount;
+        [SerializeField] private Player player;
         
         private Vector3 _lastPosition;
         private Vector3 _highPosition;
+        private bool _hasGameFinished;
         
         private IPoolService _poolService;
         private IRandomService _randomService;
@@ -22,22 +26,22 @@ namespace CodeBase.Logic.TileGeneration
             _randomService = randomService;
         }
 
+        private void OnEnable() => 
+            player.OnPlayerDeath += GameOver;
+
         private void Start()  
         {
             blockSize = Constants.BLOCK_PREFAB_LOCAL_SCALE;
             initBlocksCount = Constants.INIT_BLOCKS_COUNT;
-            
+
             _highPosition = Vector3.up * 6f;
-            InitSpawn();
+            // InitSpawn();
+            // StartCoroutine(SpawnRepeater());
         }
 
-        // private void Update()
-        // {
-        //     if (Input.GetKeyDown(KeyCode.A))
-        //     {
-        //         InitSpawn();
-        //     }
-        // }
+        private void OnDisable() => 
+            player.OnPlayerDeath -= GameOver;
+        
 
         private void InitSpawn()
         {
@@ -72,5 +76,19 @@ namespace CodeBase.Logic.TileGeneration
                 diamond.transform.position = _lastPosition + _highPosition;
             }
         }
+
+        private IEnumerator SpawnRepeater()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(0.2f);
+                if (_hasGameFinished == true)
+                    yield break;
+                SpawnTile();
+            }
+        }
+
+        private void GameOver() => 
+            _hasGameFinished = true;
     }
 }
