@@ -1,7 +1,6 @@
 using CodeBase.DI;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Foundation;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Pool;
 using CodeBase.Infrastructure.Services.Randomizer;
@@ -54,7 +53,8 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             _services.RegisterSingle<IGameFactory>(new GameFactory(
                 _services.Single<IAssetProvider>(),
                 _services.Single<IRegistrationService>(),
-                _services.Single<IPoolService>()));
+                _services.Single<IPoolService>(),
+                _services.Single<IRandomService>()));
         }
     }
 }

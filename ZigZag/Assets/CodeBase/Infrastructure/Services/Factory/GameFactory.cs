@@ -1,5 +1,6 @@
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.Pool;
+using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Infrastructure.Services.RegistrationService;
 using CodeBase.Logic.TileGeneration;
 using CodeBase.StaticData;
@@ -12,12 +13,14 @@ namespace CodeBase.Infrastructure.Services.Factory
         private readonly IAssetProvider _assetProvider;
         private readonly IRegistrationService _registrationService;
         private readonly IPoolService _poolService;
-        
-        public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolService poolService)
+        private readonly IRandomService _randomService;
+
+        public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolService poolService, IRandomService randomService)
         {
             _assetProvider = assetProvider;
             _registrationService = registrationService;
             _poolService = poolService;
+            _randomService = randomService;
         }
 
         public GameObject CreatePlayer() => 
@@ -35,6 +38,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         public GameObject CreateTileGenerator()
         {
             GameObject tileGenerator = _assetProvider.Instantiate(AssetPath.TILE_GENERATOR);
+            tileGenerator.GetComponent<TileGenerator>().Construct(_poolService, _randomService);
             return tileGenerator;
         }
 

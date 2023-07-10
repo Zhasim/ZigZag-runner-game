@@ -21,9 +21,7 @@ namespace CodeBase.Infrastructure.StateMachine.Machine
         {
             [typeof(BootsTrapState)] = new BootsTrapState(this, services, sceneLoader),
             [typeof(LoadProgressState)] = new LoadProgressState(),
-            [typeof(LoadSceneState)] = new LoadSceneState(this, sceneLoader, services.Single<IGameFactory>(),
-                services.Single<IPoolService>(),
-                services.Single<IRandomService>()),
+            [typeof(LoadSceneState)] = new LoadSceneState(this, sceneLoader, services.Single<IGameFactory>()),
             [typeof(GameLoopState)] = new GameLoopState(),
         };
     }
