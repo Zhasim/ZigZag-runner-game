@@ -47,12 +47,14 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             _services.RegisterSingle<IGlobalStateMachine>(_stateMachine);
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IRegistrationService>(new RegistrationService());
-            _services.RegisterSingle<IPoolService>(new PoolService());
+            _services.RegisterSingle<IPoolNewService>(new BlockPool());
+            _services.RegisterSingle<IPoolNewService>(new DiamondPool());
             
             _services.RegisterSingle<IGameFactory>(new GameFactory(
                 _services.Single<IAssetProvider>(),
                 _services.Single<IRegistrationService>(),
-                _services.Single<IPoolService>()));
+                _services.Single<IPoolNewService>(),
+                _services.Single<IPoolNewService>()));
         }
     }
 }

@@ -11,14 +11,24 @@ namespace CodeBase.Infrastructure.Services.Factory
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IRegistrationService _registrationService;
-        private readonly IPoolService _poolService;
+        // private readonly IPoolService _poolService;
 
-        public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolService poolService)
+        private readonly IPoolNewService _blockPool;
+        private readonly IPoolNewService _diamondPool;
+        
+        public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolNewService blockPool, IPoolNewService diamondPool)
         {
             _assetProvider = assetProvider;
             _registrationService = registrationService;
-            _poolService = poolService;
+            _blockPool = blockPool;
+            _diamondPool = diamondPool;
         }
+        // public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolService poolService)
+        // {
+        //     _assetProvider = assetProvider;
+        //     _registrationService = registrationService;
+        //     _poolService = poolService;
+        // }
 
         public GameObject CreatePlayer() => 
             _assetProvider.Instantiate(AssetPath.PLAYER);
@@ -35,7 +45,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         public GameObject CreateTileGenerator()
         {
             GameObject tileGenerator = _assetProvider.Instantiate(AssetPath.TILE_GENERATOR);
-            tileGenerator.GetComponent<TileGenerator>().Construct(_poolService);
+            tileGenerator.GetComponent<TileGenerator>().Construct(_blockPool, _diamondPool);
             return tileGenerator;
         }
 
@@ -46,7 +56,7 @@ namespace CodeBase.Infrastructure.Services.Factory
                 GameObject block = CreateBlock();
                 
                 _registrationService.RegisterWatchers(block);
-                _poolService.BlocksPool.Add(block);
+                _blockPool.AddElementToPool(block);
                 
                 block.gameObject.SetActive(false);
             }
@@ -58,7 +68,7 @@ namespace CodeBase.Infrastructure.Services.Factory
                 GameObject diamond = CreateDiamond();
                 
                 _registrationService.RegisterWatchers(diamond);
-                _poolService.DiamondsPool.Add(diamond);
+                _diamondPool.AddElementToPool(diamond);
                 
                 diamond.gameObject.SetActive(false);
             }

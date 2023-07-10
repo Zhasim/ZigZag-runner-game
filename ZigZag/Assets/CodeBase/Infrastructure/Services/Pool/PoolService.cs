@@ -4,35 +4,30 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Pool
 {
-    public class PoolService : IPoolService
+    public class PoolService : IPoolNewService
     {
-        public List<GameObject> BlocksPool { get; } = new();
-        public List<GameObject> DiamondsPool { get; } = new();
+        public List<GameObject> pool { get; } = new();
         
-        public GameObject GetFreeBlock()
+        public GameObject GetFreeElement()
         {
-            if (HasFreeElement(out GameObject element, BlocksPool))
+            if (HasFreeElement(out GameObject element))
                 return element;
             
             throw new Exception($"There is no free element in pool of type Block");
         }
-        public GameObject GetFreeDiamond()
+
+        public void AddElementToPool(GameObject element)
         {
-            if (HasFreeElement(out GameObject element, DiamondsPool))
-                return element;
-            
-            throw new Exception($"There is no free element in pool of type Diamond");
+            element.gameObject.SetActive(false);
+            pool.Add(element);
         }
 
-        public void CleanUp()
+        public void CleanUp() => 
+            pool.Clear();
+
+        private bool HasFreeElement(out GameObject element)
         {
-            BlocksPool.Clear();
-            DiamondsPool.Clear();
-        }
-        
-        private bool HasFreeElement(out GameObject element, List<GameObject> list)
-        {
-            foreach (GameObject obj in list)
+            foreach (GameObject obj in pool)
             {
                 if (!obj.gameObject.activeInHierarchy)
                 {
@@ -43,18 +38,6 @@ namespace CodeBase.Infrastructure.Services.Pool
             }
             element = null;
             return false;
-        }
-        
-        public void AddBlockToPool(GameObject obj)
-        {
-            obj.gameObject.SetActive(false);
-            BlocksPool.Add(obj);
-        }
-
-        public void AddDiamondToPool(GameObject obj)
-        {
-            obj.gameObject.SetActive(false);
-            DiamondsPool.Add(obj);
         }
     }
 }
