@@ -1,4 +1,5 @@
 using System;
+using CodeBase.DI;
 using CodeBase.Infrastructure.Services.Input;
 using UnityEngine;
 
@@ -14,12 +15,15 @@ namespace CodeBase.Entity
 
         private IInputService _inputService;
         public event Action OnPlayerDeath;
-        
-        private void Start()
+
+        private void Awake()
         {
+            _inputService = ServiceLocator.Container.Single<IInputService>();
             _rigidbody = GetComponent<Rigidbody>();
-            _isMovingForward = true;
         }
+
+        private void Start() => 
+            _isMovingForward = true;
 
         private void Update()
         {
@@ -27,11 +31,11 @@ namespace CodeBase.Entity
 
             if (!_hasGameStarted)
             {
-                if (Input.GetMouseButtonDown(0)) 
+                if (_inputService.GetInputDown()) 
                     StartMove();
             }
             
-            if (Input.GetMouseButtonDown(0)) 
+            if (_inputService.GetInputDown()) 
                 ChangeDirection();
         }
 

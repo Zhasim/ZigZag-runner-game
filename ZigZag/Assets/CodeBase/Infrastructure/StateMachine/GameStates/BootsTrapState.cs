@@ -2,6 +2,7 @@ using CodeBase.DI;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Foundation;
 using CodeBase.Infrastructure.Services.Factory;
+using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.Pool;
 using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Infrastructure.Services.RegistrationService;
@@ -44,6 +45,7 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
 
         private void RegisterServices()
         {
+            _services.RegisterSingle(RegisterInputService());
             _services.RegisterSingle<IGlobalStateMachine>(_stateMachine);
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IRegistrationService>(new RegistrationService());
@@ -55,6 +57,14 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
                 _services.Single<IRegistrationService>(),
                 _services.Single<IPoolService>(),
                 _services.Single<IRandomService>()));
+        }
+
+        private static IInputService RegisterInputService()
+        {
+            if (Application.isEditor)
+                return new StandaloneInputService();
+            else
+                return new MobileInputService();
         }
     }
 }

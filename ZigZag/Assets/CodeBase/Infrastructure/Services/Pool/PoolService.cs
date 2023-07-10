@@ -13,8 +13,8 @@ namespace CodeBase.Infrastructure.Services.Pool
         {
             if (HasFreeElement(out GameObject element, BlocksPool))
                 return element;
-            
-            throw new Exception($"There is no free element in pool of type Block");
+            return null;
+            //throw new Exception($"There is no free element in pool of type Block");
         }
 
         public GameObject GetFreeDiamond()

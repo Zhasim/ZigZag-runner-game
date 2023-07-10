@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using CodeBase.DI;
 using CodeBase.Entity;
 using CodeBase.Infrastructure.Services.Pool;
 using CodeBase.Infrastructure.Services.Randomizer;
@@ -20,10 +22,16 @@ namespace CodeBase.Logic.TileGeneration
         private IPoolService _poolService;
         private IRandomService _randomService;
 
-        public void Construct(IPoolService poolService, IRandomService randomService)
+        // public void Construct(IPoolService poolService, IRandomService randomService)
+        // {
+        //     _poolService = poolService;
+        //     _randomService = randomService;
+        // }
+
+        private void Awake()
         {
-            _poolService = poolService;
-            _randomService = randomService;
+            _poolService = ServiceLocator.Container.Single<IPoolService>();
+            _randomService = ServiceLocator.Container.Single<IRandomService>();
         }
 
         private void OnEnable() => 
@@ -35,7 +43,7 @@ namespace CodeBase.Logic.TileGeneration
             initBlocksCount = Constants.INIT_BLOCKS_COUNT;
 
             _highPosition = Vector3.up * 6f;
-            // InitSpawn();
+            InitSpawn();
             // StartCoroutine(SpawnRepeater());
         }
 
