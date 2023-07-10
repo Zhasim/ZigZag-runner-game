@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Foundation;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Pool;
+using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Infrastructure.Services.RegistrationService;
 using CodeBase.Infrastructure.StateMachine.Machine;
 using CodeBase.Infrastructure.StateMachine.States;
@@ -48,6 +49,7 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IRegistrationService>(new RegistrationService());
             _services.RegisterSingle<IPoolService>(new PoolService());
+            _services.RegisterSingle<IRandomService>(new RandomService());
             
             _services.RegisterSingle<IGameFactory>(new GameFactory(
                 _services.Single<IAssetProvider>(),

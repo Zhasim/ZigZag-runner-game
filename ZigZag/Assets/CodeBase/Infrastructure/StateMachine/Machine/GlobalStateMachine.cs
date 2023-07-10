@@ -4,6 +4,7 @@ using CodeBase.DI;
 using CodeBase.Infrastructure.Foundation;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Pool;
+using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Infrastructure.StateMachine.GameStates;
 using CodeBase.Infrastructure.StateMachine.States;
 
@@ -20,7 +21,9 @@ namespace CodeBase.Infrastructure.StateMachine.Machine
         {
             [typeof(BootsTrapState)] = new BootsTrapState(this, services, sceneLoader),
             [typeof(LoadProgressState)] = new LoadProgressState(),
-            [typeof(LoadSceneState)] = new LoadSceneState(this, sceneLoader, services.Single<IGameFactory>(), services.Single<IPoolService>()),
+            [typeof(LoadSceneState)] = new LoadSceneState(this, sceneLoader, services.Single<IGameFactory>(),
+                services.Single<IPoolService>(),
+                services.Single<IRandomService>()),
             [typeof(GameLoopState)] = new GameLoopState(),
         };
     }
