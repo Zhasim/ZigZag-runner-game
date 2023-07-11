@@ -38,6 +38,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         public GameObject CreateTileGenerator()
         {
             GameObject tileGenerator = _assetProvider.Instantiate(AssetPath.TILE_GENERATOR);
+            //tileGenerator.GetComponent<TileGenerator>().Construct(_poolService);
             //tileGenerator.GetComponent<TileGenerator>().Construct(_poolService, _randomService);
             return tileGenerator;
         }

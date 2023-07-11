@@ -21,12 +21,17 @@ namespace CodeBase.Logic.TileGeneration
         
         private IPoolService _poolService;
         private IRandomService _randomService;
+        
+        // public void Construct(IPoolService poolService) => 
+        //     _poolService = poolService;
+        
 
         // public void Construct(IPoolService poolService, IRandomService randomService)
         // {
         //     _poolService = poolService;
         //     _randomService = randomService;
         // }
+
 
         private void Awake()
         {
@@ -44,7 +49,7 @@ namespace CodeBase.Logic.TileGeneration
 
             _highPosition = Vector3.up * 6f;
             InitSpawn();
-            // StartCoroutine(SpawnRepeater());
+            StartCoroutine(SpawnRepeater());
         }
 
         private void OnDisable() => 

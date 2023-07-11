@@ -36,7 +36,11 @@ namespace CodeBase.Entity
             yield return new WaitForSeconds(DelayBeforeReturning);
             _rigidbody.isKinematic = true;
             _rigidbody.useGravity = false;
-            gameObject.SetActive(false);
+            
+            Hide();
         }
+
+        private void Hide() => 
+            gameObject.SetActive(false);
     }
 }
