@@ -22,7 +22,18 @@ namespace CodeBase.Logic.TileGeneration
         private IRandomService _randomService;
         
         [Inject]
+<<<<<<< Updated upstream
         private void Construct(IPoolService poolService, IRandomService randomService)
+=======
+        public void Construct(IPoolService poolService, IRandomService randomService)
+        {
+            _poolService = poolService;
+            _randomService = randomService;
+        }
+
+
+        private void Awake()
+>>>>>>> Stashed changes
         {
             _poolService = poolService;
             _randomService = randomService;
