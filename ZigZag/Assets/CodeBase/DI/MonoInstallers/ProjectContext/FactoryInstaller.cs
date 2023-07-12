@@ -1,6 +1,7 @@
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Pool;
+using CodeBase.Infrastructure.Services.Pools;
 using CodeBase.UI.Services.Factory;
 using Zenject;
 
@@ -12,13 +13,25 @@ namespace CodeBase.DI.MonoInstallers.ProjectContext
         {
             BindAssetProvider();
             
-            BindPoolService();
+            BindPoolMono();
             
+            BindPoolService();
+
             BindGameFactory();
+
+            BindBlocksPool();
             
             BindUIFactory();
         }
-        
+
+        private void BindBlocksPool()
+        {
+            Container
+                .Bind<IBlocksPool>()
+                .To<BlocksPool>()
+                .AsSingle();
+        }
+
         private void BindAssetProvider()
         {
             Container
@@ -49,6 +62,14 @@ namespace CodeBase.DI.MonoInstallers.ProjectContext
                 .Bind<IUIFactory>()
                 .To<UIFactory>()
                 .AsSingle();
+        }
+
+        private void BindPoolMono()
+        {
+            Container
+                .Bind(typeof(PoolMono<>))
+                .To(typeof(PoolMono<>))
+                .AsTransient();
         }
     }
 }

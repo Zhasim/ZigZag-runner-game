@@ -10,15 +10,17 @@ namespace CodeBase.Entity
         [SerializeField] private float speed;
 
         private bool _hasGameStarted;
+        private bool _hasGameFinished;
+        
         private bool _isMovingForward;
         private Rigidbody _rigidbody;
 
-        private IInputService _inputService;
+        //private IInputService _inputService;
         public event Action OnPlayerDeath;
 
-        [Inject]
-        private void Construct(IInputService inputService) => 
-            _inputService = inputService;
+        // [Inject]
+        // private void Construct(IInputService inputService) => 
+        //     _inputService = inputService;
 
         private void Awake() => 
             _rigidbody = GetComponent<Rigidbody>();
@@ -32,11 +34,14 @@ namespace CodeBase.Entity
 
             if (!_hasGameStarted)
             {
-                if (Input.GetMouseButton(0)) 
+                if (Input.GetMouseButtonDown(0))
+                {
                     StartMove();
+                    _hasGameStarted = true;
+                }
             }
             
-            if (Input.GetMouseButton(0)) 
+            if (Input.GetMouseButtonDown(0)) 
                 ChangeDirection();
         }
 
@@ -48,11 +53,9 @@ namespace CodeBase.Entity
         
         private void StartMove()
         {
-            if (Input.GetMouseButton(0))
-            {
-                _hasGameStarted = false;
-                _rigidbody.velocity = Vector3.right * (speed * Time.deltaTime);
-            }
+            if(_hasGameStarted)
+                return;
+            _rigidbody.velocity = Vector3.right * (speed * Time.deltaTime);
         }
 
         private void CheckGround()
@@ -60,9 +63,9 @@ namespace CodeBase.Entity
             if (!Physics.Raycast(transform.position, Vector3.down, 2.0f))
             {
                 _rigidbody.velocity = Vector3.down * 25f;
-                if (!_hasGameStarted)
+                if (!_hasGameFinished)
                 {
-                    _hasGameStarted = true;
+                    _hasGameFinished = true;
                     OnPlayerDeath?.Invoke();
                     _rigidbody.constraints = RigidbodyConstraints.None;
                     Destroy(gameObject, 5.0f);

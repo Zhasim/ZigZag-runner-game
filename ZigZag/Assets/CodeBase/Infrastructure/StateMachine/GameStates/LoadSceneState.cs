@@ -49,8 +49,6 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             _factory.CreateInitPlatform();
             _factory.CreateBlock();
             _factory.CreateDiamond();
-            
-            InitPools();
             _factory.CreateTileGenerator();
 
 

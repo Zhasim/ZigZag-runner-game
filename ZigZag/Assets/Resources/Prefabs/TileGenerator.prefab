@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fbc52055d9a429ab1f99dc3584f9e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockSize: 0
   initBlocksCount: 0
+  blockPrefab: {fileID: -7765171392544227519, guid: b52d90579773c19478c1f1883598b47c, type: 3}
+  diamondPrefab: {fileID: -4604641504995220651, guid: 26e8915a9e1bbc949a2ee11f73be9eba, type: 3}
   player: {fileID: 2233848736380523054, guid: 2f6f0f06690c5ab47b5decfb1b41323e, type: 3}
