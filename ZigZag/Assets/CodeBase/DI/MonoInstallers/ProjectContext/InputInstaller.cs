@@ -2,9 +2,9 @@ using CodeBase.Infrastructure.Services.Input;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.DI.Installers
+namespace CodeBase.DI.MonoInstallers.ProjectContext
 {
-    public class InputInstaller : Installer<InputInstaller>
+    public class InputInstaller : MonoInstaller
     {
         public override void InstallBindings() => 
             BindInputService();
@@ -12,15 +12,9 @@ namespace CodeBase.DI.Installers
         private void BindInputService()
         {
             if (Application.isEditor)
-            {
                 BindStandaloneInputService();
-                Debug.Log("INPUT - STANDALONE");
-            }
             else
-            {
                 BindMobileInputService();
-                Debug.Log("INPUT - MOBILE");
-            }
         }
         
         private void BindStandaloneInputService()
@@ -29,6 +23,7 @@ namespace CodeBase.DI.Installers
                 .Bind<IInputService>()
                 .To<StandaloneInputService>()
                 .AsSingle();
+            Debug.Log("INPUT - STANDALONE");
         }
         
         private void BindMobileInputService()
@@ -37,7 +32,8 @@ namespace CodeBase.DI.Installers
                 .Bind<IInputService>()
                 .To<MobileInputService>()
                 .AsSingle();
+            
+            Debug.Log("INPUT - MOBILE");
         }
-
     }
 }

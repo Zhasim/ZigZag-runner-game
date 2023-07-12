@@ -32,11 +32,11 @@ namespace CodeBase.Entity
 
             if (!_hasGameStarted)
             {
-                if (_inputService.GetInputDown()) 
+                if (Input.GetMouseButton(0)) 
                     StartMove();
             }
             
-            if (_inputService.GetInputDown()) 
+            if (Input.GetMouseButton(0)) 
                 ChangeDirection();
         }
 
@@ -45,10 +45,10 @@ namespace CodeBase.Entity
             _rigidbody.velocity = (_isMovingForward ? Vector3.right : Vector3.back) * speed;
             _isMovingForward = !_isMovingForward;
         }
-
+        
         private void StartMove()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 _hasGameStarted = false;
                 _rigidbody.velocity = Vector3.right * (speed * Time.deltaTime);
