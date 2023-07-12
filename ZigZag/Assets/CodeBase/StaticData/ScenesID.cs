@@ -4,7 +4,6 @@ namespace CodeBase.StaticData
     {
         public const string INIT = "Init"; 
         public const string GAME_LOOP = "GameLoop"; 
-        public const string MAIN_MENU = "MainMenu"; 
-        
+        public const string MAIN_MENU = "MainMenu";
     }
 }

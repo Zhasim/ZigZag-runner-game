@@ -1,8 +1,6 @@
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.Pool;
-using CodeBase.Infrastructure.Services.Randomizer;
-using CodeBase.Infrastructure.Services.RegistrationService;
-using CodeBase.Logic.TileGeneration;
+using CodeBase.Infrastructure.Services.Registration;
 using CodeBase.StaticData;
 using UnityEngine;
 
@@ -13,14 +11,14 @@ namespace CodeBase.Infrastructure.Services.Factory
         private readonly IAssetProvider _assetProvider;
         private readonly IRegistrationService _registrationService;
         private readonly IPoolService _poolService;
-        private readonly IRandomService _randomService;
 
-        public GameFactory(IAssetProvider assetProvider, IRegistrationService registrationService, IPoolService poolService, IRandomService randomService)
+        public GameFactory(IAssetProvider assetProvider, 
+            IRegistrationService registrationService,
+            IPoolService poolService)
         {
             _assetProvider = assetProvider;
             _registrationService = registrationService;
             _poolService = poolService;
-            _randomService = randomService;
         }
 
         public GameObject CreatePlayer() => 
@@ -35,13 +33,8 @@ namespace CodeBase.Infrastructure.Services.Factory
         public GameObject CreateBlock() => 
             _assetProvider.Instantiate(AssetPath.BLOCK);
         
-        public GameObject CreateTileGenerator()
-        {
-            GameObject tileGenerator = _assetProvider.Instantiate(AssetPath.TILE_GENERATOR);
-            //tileGenerator.GetComponent<TileGenerator>().Construct(_poolService);
-            //tileGenerator.GetComponent<TileGenerator>().Construct(_poolService, _randomService);
-            return tileGenerator;
-        }
+        public GameObject CreateTileGenerator() => 
+            _assetProvider.Instantiate(AssetPath.TILE_GENERATOR);
 
         public void CreateBlocksPool()
         {

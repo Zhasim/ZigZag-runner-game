@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using CodeBase.DI;
-using CodeBase.Infrastructure.Services.Progress;
 using CodeBase.Infrastructure.Services.Progress.Watchers;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.RegistrationService
+namespace CodeBase.Infrastructure.Services.Registration
 {
-    public interface IRegistrationService : IService
+    public interface IRegistrationService
     {
         List<IProgressReader> ProgressReaders { get; }
         List<IProgressWriter> ProgressWriters { get; }

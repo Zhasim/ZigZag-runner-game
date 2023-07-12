@@ -1,7 +1,7 @@
 using System;
-using CodeBase.DI;
 using CodeBase.Infrastructure.Services.Input;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Entity
 {
@@ -16,11 +16,12 @@ namespace CodeBase.Entity
         private IInputService _inputService;
         public event Action OnPlayerDeath;
 
-        private void Awake()
-        {
-            _inputService = ServiceLocator.Container.Single<IInputService>();
+        [Inject]
+        private void Construct(IInputService inputService) => 
+            _inputService = inputService;
+
+        private void Awake() => 
             _rigidbody = GetComponent<Rigidbody>();
-        }
 
         private void Start() => 
             _isMovingForward = true;

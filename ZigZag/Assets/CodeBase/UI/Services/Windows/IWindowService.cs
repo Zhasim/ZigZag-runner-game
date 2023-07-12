@@ -1,9 +1,8 @@
-using CodeBase.DI;
 using CodeBase.StaticData.Windows;
 
 namespace CodeBase.UI.Services.Windows
 {
-    public interface IWindowService : IService
+    public interface IWindowService
     {
         void Open(WindowId windowId);
     }

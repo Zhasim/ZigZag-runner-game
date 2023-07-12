@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CodeBase.Infrastructure.Foundation
+namespace CodeBase.Infrastructure.Foundation.Loader
 {
-    public class SceneLoader
+    public class SceneLoader : ISceneLoader
     {
         private readonly ICoroutineRunner _coroutineRunner;
         

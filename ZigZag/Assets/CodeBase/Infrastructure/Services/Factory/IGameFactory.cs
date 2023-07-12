@@ -1,9 +1,8 @@
-using CodeBase.DI;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Factory
 {
-    public interface IGameFactory : IService
+    public interface IGameFactory
     {
         GameObject CreatePlayer();
         GameObject CreateInitPlatform();

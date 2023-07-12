@@ -1,8 +1,6 @@
-using CodeBase.DI;
-
 namespace CodeBase.UI.Services.Factory
 {
-    public interface IUIFactory : IService
+    public interface IUIFactory
     {
         void CreateWinScreen();
         void CreateLoseScreen();

@@ -1,7 +1,6 @@
 using System;
 using CodeBase.UI.Windows;
 
-
 namespace CodeBase.StaticData.Windows
 {
     [Serializable]

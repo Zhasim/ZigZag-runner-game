@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using CodeBase.DI;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Pool
 {
-    public interface IPoolService : IService
+    public interface IPoolService
     {
         List<GameObject> BlocksPool { get; }
         List<GameObject> DiamondsPool { get; }

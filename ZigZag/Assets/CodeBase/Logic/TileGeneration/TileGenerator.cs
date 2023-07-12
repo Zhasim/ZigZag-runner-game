@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
-using CodeBase.DI;
 using CodeBase.Entity;
 using CodeBase.Infrastructure.Services.Pool;
 using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.StaticData;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Logic.TileGeneration
 {
@@ -22,21 +21,11 @@ namespace CodeBase.Logic.TileGeneration
         private IPoolService _poolService;
         private IRandomService _randomService;
         
-        // public void Construct(IPoolService poolService) => 
-        //     _poolService = poolService;
-        
-
-        // public void Construct(IPoolService poolService, IRandomService randomService)
-        // {
-        //     _poolService = poolService;
-        //     _randomService = randomService;
-        // }
-
-
-        private void Awake()
+        [Inject]
+        private void Construct(IPoolService poolService, IRandomService randomService)
         {
-            _poolService = ServiceLocator.Container.Single<IPoolService>();
-            _randomService = ServiceLocator.Container.Single<IRandomService>();
+            _poolService = poolService;
+            _randomService = randomService;
         }
 
         private void OnEnable() => 
@@ -64,7 +53,9 @@ namespace CodeBase.Logic.TileGeneration
 
         private void SpawnTile()
         {
-            int randomValue = _randomService.Next(0, 2);
+            //int randomValue = _randomService.Next(0, 2);
+
+            int randomValue = Random.Range(0, 2);
             
             Vector3 currentPosition = _lastPosition;
             GameObject currentBlock = _poolService.GetFreeBlock();

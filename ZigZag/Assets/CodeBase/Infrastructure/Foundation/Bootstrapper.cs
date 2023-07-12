@@ -1,18 +1,26 @@
 using CodeBase.Infrastructure.StateMachine.GameStates;
+using CodeBase.Infrastructure.StateMachine.Machine;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Infrastructure.Foundation
 {
-    public class Bootstrapper : MonoBehaviour, ICoroutineRunner
+    public class Bootstrapper : MonoBehaviour
     {
-        private Game _game;
+        private IGlobalStateMachine _stateMachine;
 
-        private void Awake()
+        [Inject]
+        private void Construct(IGlobalStateMachine stateMachine) => 
+            _stateMachine = stateMachine;
+
+        private void Start()
         {
-            _game = new Game(this);
-            _game.stateMachine.Enter<BootsTrapState>();
-            
+            _stateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(this);
+        }
+
+        public class Factory : PlaceholderFactory<Bootstrapper>
+        {
         }
     }
 }
