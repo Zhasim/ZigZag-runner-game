@@ -1,6 +1,6 @@
 using CodeBase.Infrastructure.StateMachine.Machine;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.StateMachine.Provider
 {
     public interface IGlobalStateMachineProvider
     {

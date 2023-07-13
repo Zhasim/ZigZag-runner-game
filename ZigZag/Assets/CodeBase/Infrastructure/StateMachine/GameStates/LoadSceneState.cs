@@ -6,7 +6,6 @@ using CodeBase.Infrastructure.StateMachine.States;
 using CodeBase.Logic.Camera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace CodeBase.Infrastructure.StateMachine.GameStates
 {
@@ -55,13 +54,6 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             Debug.Log("Game World INIT");
         }
 
-        private void InitPools()
-        {
-            _factory.CreateBlocksPool();
-            _factory.CreateDiamondsPool();
-        }
-        
-
         public void Exit()
         {
             _loadingCurtain.Hide();
@@ -72,9 +64,5 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
         {
             if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
         }
-
-        // public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadSceneState>
-        // {
-        // }
     }
 }

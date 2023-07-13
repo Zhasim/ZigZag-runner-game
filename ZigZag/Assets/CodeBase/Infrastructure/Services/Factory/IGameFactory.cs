@@ -8,8 +8,6 @@ namespace CodeBase.Infrastructure.Services.Factory
         GameObject CreateInitPlatform();
         GameObject CreateDiamond();
         GameObject CreateBlock();
-        void CreateBlocksPool();
         GameObject CreateTileGenerator();
-        void CreateDiamondsPool();
     }
 }

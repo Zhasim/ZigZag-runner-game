@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.Pools
+namespace CodeBase.Infrastructure.Services.Pools.DiamondPool
 {
-    public interface IBlocksPool
+    public interface IDiamondPool
     {
         GameObject GetFreeElement();
         void CreatePool(int count);

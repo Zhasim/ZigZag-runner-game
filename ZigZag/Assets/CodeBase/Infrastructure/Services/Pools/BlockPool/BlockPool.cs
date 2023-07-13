@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using CodeBase.Infrastructure.Services.Factory;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.Pools
+namespace CodeBase.Infrastructure.Services.Pools.BlockPool
 {
-    public class BlocksPool : IBlocksPool
+    public class BlockPool : IBlockPool
     {
         private readonly IGameFactory _factory;
         private Queue<GameObject> _pool = new();
 
-        public BlocksPool(IGameFactory factory) => 
+        public BlockPool(IGameFactory factory) => 
             _factory = factory;
 
         public GameObject GetFreeElement()  

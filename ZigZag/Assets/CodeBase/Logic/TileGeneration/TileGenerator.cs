@@ -2,8 +2,11 @@ using System.Collections;
 using CodeBase.Entity;
 using CodeBase.Entity.Diamonds;
 using CodeBase.Infrastructure.Services.Pools;
+using CodeBase.Infrastructure.Services.Pools.BlockPool;
+using CodeBase.Infrastructure.Services.Pools.DiamondPool;
 using CodeBase.StaticData;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace CodeBase.Logic.TileGeneration
@@ -16,18 +19,21 @@ namespace CodeBase.Logic.TileGeneration
         [SerializeField] private Diamond diamondPrefab;
         [SerializeField] private Player player;
 
-        private IBlocksPool _blocksPPP;
-        private LocalFactory<Block> _blockFactory;
-        private LocalFactory<Diamond> _diamondFactory;
+        private IBlockPool _blockPool;
+        private IDiamondPool _diamondPool;
 
-        private PoolMono<Block> _blockPool;
-        private PoolMono<Diamond> _diamondPool;
-        
         private Vector3 _lastPosition;
         private Vector3 _highPosition;
         private float _blockSize;
         private bool _hasGameFinished;
         
+        [Inject]
+        private void Construct(IBlockPool blockPool, IDiamondPool diamondPool)
+        {
+            _diamondPool = diamondPool;
+            _blockPool = blockPool;
+        }
+
         private void OnEnable() => 
             player.OnPlayerDeath += GameOver;
 
@@ -35,12 +41,6 @@ namespace CodeBase.Logic.TileGeneration
         {
             initBlocksCount = Constants.INIT_BLOCKS_COUNT;
 
-            _blockFactory = new LocalFactory<Block>(blockPrefab);
-            _diamondFactory = new LocalFactory<Diamond>(diamondPrefab);
-
-            _blockPool = new PoolMono<Block>(blockPrefab, 10, transform, _blockFactory);
-            _diamondPool = new PoolMono<Diamond>(diamondPrefab, 10, transform, _diamondFactory);
-            
             _highPosition = Vector3.up * 6f;
             _blockSize = blockPrefab.transform.localScale.x;
             
@@ -65,7 +65,7 @@ namespace CodeBase.Logic.TileGeneration
         int randomValue = Random.Range(0, 2);
         
         Vector3 currentPosition = _lastPosition;
-        Block currentBlock = _blockPool.GetFreeElement();
+        GameObject currentBlock = _blockPool.GetFreeElement();
         
         if (randomValue == 0)
             currentPosition.x += _blockSize;
@@ -83,7 +83,7 @@ namespace CodeBase.Logic.TileGeneration
     {
         if (chanceToDiamond == 0)
         {
-            Diamond diamond = _diamondPool.GetFreeElement();
+            GameObject diamond = _diamondPool.GetFreeElement();
             diamond.transform.position = _lastPosition + _highPosition;
         }
     }

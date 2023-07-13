@@ -9,7 +9,7 @@ using CodeBase.Infrastructure.StateMachine.GameStates;
 using CodeBase.Infrastructure.StateMachine.Machine;
 using Zenject;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.StateMachine.Provider
 {
     public class GlobalStateMachineProvider : IGlobalStateMachineProvider
     {
