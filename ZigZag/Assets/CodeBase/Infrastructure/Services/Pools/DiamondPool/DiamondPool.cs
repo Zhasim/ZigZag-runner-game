@@ -46,7 +46,7 @@ namespace CodeBase.Infrastructure.Services.Pools.DiamondPool
   
         private GameObject CreateObject()  
         {  
-            var createdObject = _factory.CreateBlock();  
+            var createdObject = _factory.CreateDiamond();  
             createdObject.gameObject.SetActive(false);  
             _pool.Enqueue(createdObject);  
             return createdObject;  
