@@ -1,36 +1,27 @@
-using CodeBase.DI.Installers;
+using CodeBase.DI.SubContainers;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Foundation;
 using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
+using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.StateMachine.Machine;
 using Zenject;
 
-namespace CodeBase.DI.MonoInstallers.ProjectContext
+namespace CodeBase.DI.MonoInstallers
 {
     public class BootstrapInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            BindBootstrapper();
-
             BindCoroutineRunner();
             
             BindSceneLoader();
             
             BindLoadingCurtain();
-            
-            BindGlobalStateMachine();
+
+            BindInput();
         }
         
-        private void BindBootstrapper()
-        {
-            Container
-                .BindFactory<Bootstrapper, Bootstrapper.Factory>()
-                .FromComponentInNewPrefabResource(AssetPath.Bootstrapper);
-        }
-
         private void BindCoroutineRunner()
         {
             Container
@@ -57,12 +48,12 @@ namespace CodeBase.DI.MonoInstallers.ProjectContext
                 .AsSingle();
         }
 
-        private void BindGlobalStateMachine()
+        private void BindInput()
         {
             Container
-                .Bind<IGlobalStateMachine>()
+                .Bind<IInputService>()
                 .FromSubContainerResolve()
-                .ByInstaller<GlobalStateMachineInstaller>()
+                .ByInstaller<InputInstaller>()
                 .AsSingle();
         }
     }

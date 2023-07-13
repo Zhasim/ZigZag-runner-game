@@ -4,7 +4,6 @@ using CodeBase.Infrastructure.StateMachine.Machine;
 using CodeBase.Infrastructure.StateMachine.States;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace CodeBase.Infrastructure.StateMachine.GameStates
 {
@@ -39,9 +38,6 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
         
         public void Exit() => 
             Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
-
-        public class Factory : PlaceholderFactory<IGlobalStateMachine, BootstrapState>
-        {
-        }
+        
     }
 }

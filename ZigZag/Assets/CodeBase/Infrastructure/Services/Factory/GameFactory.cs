@@ -11,7 +11,6 @@ namespace CodeBase.Infrastructure.Services.Factory
         private readonly IAssetProvider _assetProvider;
         private readonly IRegistrationService _registrationService;
         private readonly IPoolService _poolService;
-
         public GameFactory(IAssetProvider assetProvider, 
             IRegistrationService registrationService,
             IPoolService poolService)

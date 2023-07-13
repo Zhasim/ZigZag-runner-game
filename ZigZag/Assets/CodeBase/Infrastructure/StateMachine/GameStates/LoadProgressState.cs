@@ -45,8 +45,8 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
         public void Exit() => 
             Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
 
-        public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadProgressState>
-        {
-        }
+        // public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadProgressState>
+        // {
+        // }
     }
 }

@@ -5,7 +5,7 @@ using CodeBase.Infrastructure.Services.Pools;
 using CodeBase.UI.Services.Factory;
 using Zenject;
 
-namespace CodeBase.DI.MonoInstallers.ProjectContext
+namespace CodeBase.DI.MonoInstallers
 {
     public class FactoryInstaller : MonoInstaller
     {

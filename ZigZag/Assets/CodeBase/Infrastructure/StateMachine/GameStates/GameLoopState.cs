@@ -23,8 +23,8 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
         {
         }
 
-        public class Factory : PlaceholderFactory<IGlobalStateMachine, GameLoopState>
-        {
-        }
+        // public class Factory : PlaceholderFactory<IGlobalStateMachine, GameLoopState>
+        // {
+        // }
     }
 }

@@ -73,8 +73,8 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
             if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
         }
 
-        public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadSceneState>
-        {
-        }
+        // public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadSceneState>
+        // {
+        // }
     }
 }

@@ -6,7 +6,7 @@ using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using Zenject;
 
-namespace CodeBase.DI.MonoInstallers.ProjectContext
+namespace CodeBase.DI.MonoInstallers
 {
     public class ServiceInstaller : MonoInstaller
     {

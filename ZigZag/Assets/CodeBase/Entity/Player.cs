@@ -14,13 +14,13 @@ namespace CodeBase.Entity
         
         private bool _isMovingForward;
         private Rigidbody _rigidbody;
-
-        //private IInputService _inputService;
         public event Action OnPlayerDeath;
 
-        // [Inject]
-        // private void Construct(IInputService inputService) => 
-        //     _inputService = inputService;
+        private IInputService _inputService;
+
+        [Inject]
+        private void Construct(IInputService inputService) => 
+            _inputService = inputService;
 
         private void Awake() => 
             _rigidbody = GetComponent<Rigidbody>();
@@ -34,14 +34,14 @@ namespace CodeBase.Entity
 
             if (!_hasGameStarted)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (_inputService.GetInputDown())
                 {
                     StartMove();
                     _hasGameStarted = true;
                 }
             }
             
-            if (Input.GetMouseButtonDown(0)) 
+            if (_inputService.GetInputDown()) 
                 ChangeDirection();
         }
 

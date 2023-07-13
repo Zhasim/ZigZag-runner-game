@@ -7,20 +7,17 @@ namespace CodeBase.Infrastructure.Foundation
 {
     public class Bootstrapper : MonoBehaviour
     {
-        private IGlobalStateMachine _stateMachine;
+        private IGlobalStateMachineProvider _stateMachineProvider;
 
         [Inject]
-        private void Construct(IGlobalStateMachine stateMachine) => 
-            _stateMachine = stateMachine;
+        private void Construct(IGlobalStateMachineProvider stateMachineProvider) => 
+            _stateMachineProvider = stateMachineProvider;
 
         private void Start()
         {
-            _stateMachine.Enter<BootstrapState>();
+            GlobalStateMachine stateMachine = _stateMachineProvider.GetStateMachine();
+            stateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(this);
-        }
-
-        public class Factory : PlaceholderFactory<Bootstrapper>
-        {
         }
     }
 }
