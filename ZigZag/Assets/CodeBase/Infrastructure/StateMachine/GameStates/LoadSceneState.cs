@@ -44,14 +44,16 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
         {
             GameObject hero = _factory.CreatePlayer();
             CameraFollow(hero);
-            
+
+            InitInitialPlatform();
+            Debug.Log("Game World INIT");
+        }
+
+        private void InitInitialPlatform()
+        {
             _factory.CreateInitPlatform();
             _factory.CreateBlock();
             _factory.CreateDiamond();
-            _factory.CreateTileGenerator();
-
-
-            Debug.Log("Game World INIT");
         }
 
         public void Exit()

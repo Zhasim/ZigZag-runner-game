@@ -26,8 +26,5 @@ namespace CodeBase.Infrastructure.Services.Factory
 
         public GameObject CreateBlock() => 
             _assetProvider.Instantiate(AssetPath.BLOCK);
-        
-        public GameObject CreateTileGenerator() => 
-            _assetProvider.Instantiate(AssetPath.TILE_GENERATOR);
     }
 }

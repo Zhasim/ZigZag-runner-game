@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using CodeBase.Entity;
+using CodeBase.Entity.Diamonds;
 using CodeBase.Infrastructure.Services.Factory;
 using UnityEngine;
 
@@ -6,50 +8,23 @@ namespace CodeBase.Infrastructure.Services.Pools.DiamondPool
 {
     public class DiamondPool : IDiamondPool
     {
-        private readonly IGameFactory _factory;
-        private Queue<GameObject> _pool = new();
+        private readonly Diamond.Pool _pool;
+        private readonly List<Diamond> _blocks = new();
 
-        public DiamondPool(IGameFactory factory) => 
-            _factory = factory;
+        public DiamondPool(Diamond.Pool pool) => 
+            _pool = pool;
+        
+        public void AddFoo() =>     
+            _blocks.Add(_pool.Spawn());
 
-        public GameObject GetFreeElement()  
-        {  
-            if (HasFreeElement(out var element))  
-                return element;  
-            return CreateObject();  
+        public void RemoveFoo()
+        {
+            if (_blocks.Count > 0)
+            {
+                Diamond foo = _blocks[0];
+                _pool.Despawn(foo);
+                _blocks.Remove(foo);
+            }
         }
-
-        public void CreatePool(int count)  
-        {  
-            _pool = new Queue<GameObject>();  
-            for (int i = 0; i < count; i++) 
-                CreateObject();
-        }
-
-        public void CleanUp() => 
-            _pool.Clear();
-
-        private bool HasFreeElement(out GameObject element)  
-        {  
-            foreach (var mono in _pool)  
-            {  
-                if (!mono.gameObject.activeInHierarchy)  
-                {  
-                    element = mono;  
-                    mono.gameObject.SetActive(true);  
-                    return true;  
-                }  
-            }  
-            element = null;  
-            return false;  
-        }  
-  
-        private GameObject CreateObject()  
-        {  
-            var createdObject = _factory.CreateDiamond();  
-            createdObject.gameObject.SetActive(false);  
-            _pool.Enqueue(createdObject);  
-            return createdObject;  
-        }  
     }
 }
