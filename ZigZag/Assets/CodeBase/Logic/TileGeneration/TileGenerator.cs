@@ -1,5 +1,4 @@
 using System.Collections;
-using CodeBase.Entity;
 using CodeBase.Infrastructure.Services.Pools.BlockPool;
 using CodeBase.Infrastructure.Services.Pools.DiamondPool;
 using UnityEngine;
@@ -36,8 +35,8 @@ namespace CodeBase.Logic.TileGeneration
             _highPosition = Vector3.up * 6f;
 
             InitPools();
-            SpawnTile();
-            InitSpawn();
+            // SpawnTile();
+            // InitSpawn();
             //StartCoroutine(SpawnRepeater());
         }
 
