@@ -18,7 +18,6 @@ namespace CodeBase.Infrastructure.Foundation
         {
             GlobalStateMachine stateMachine = _stateMachineProvider.GetStateMachine();
             stateMachine.Enter<BootstrapState>();
-            DontDestroyOnLoad(this);
         }
     }
 }

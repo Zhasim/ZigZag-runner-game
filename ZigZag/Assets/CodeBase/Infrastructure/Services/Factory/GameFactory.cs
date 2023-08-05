@@ -16,7 +16,7 @@ namespace CodeBase.Infrastructure.Services.Factory
         }
 
         public GameObject CreatePlayer() => 
-            _assetProvider.Instantiate(AssetPath.PLAYER);
+            _assetProvider.InstantiateCheck(AssetPath.PLAYER);
 
         public GameObject CreateInitPlatform() => 
             _assetProvider.Instantiate(AssetPath.INIT_PLATFORM);

@@ -42,19 +42,19 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
 
         private void InitGameWorld()
         {
-            GameObject hero = _factory.CreatePlayer();
-            CameraFollow(hero);
+             // GameObject hero = _factory.CreatePlayer();
+             // CameraFollow(hero);
 
-            InitInitialPlatform();
+            //InitInitialPlatform();
             Debug.Log("Game World INIT");
         }
 
-        private void InitInitialPlatform()
-        {
-            _factory.CreateInitPlatform();
-            _factory.CreateBlock();
-            _factory.CreateDiamond();
-        }
+        // private void InitInitialPlatform()
+        // {
+        //     _factory.CreateInitPlatform();
+        //     _factory.CreateBlock();
+        //     _factory.CreateDiamond();
+        // }
 
         public void Exit()
         {

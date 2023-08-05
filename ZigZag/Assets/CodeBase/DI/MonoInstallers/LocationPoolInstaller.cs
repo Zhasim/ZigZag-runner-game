@@ -9,7 +9,7 @@ using Zenject;
 
 namespace CodeBase.DI.MonoInstallers
 {
-    public class GameLocationInstaller : MonoInstaller
+    public class LocationPoolInstaller : MonoInstaller
     {
         private const int DIAMONDS_INIT_COUNT = 15;
         private const int DIAMONDS_MAX_COUNT = 30;

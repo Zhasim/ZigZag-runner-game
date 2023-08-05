@@ -1,10 +1,10 @@
-using UnityEngine;
+using CodeBase.Entity;
 
 namespace CodeBase.Infrastructure.Services.Pools.BlockPool
 {
     public interface IBlockPool
     {
-        void AddFoo();
-        void RemoveFoo();
+        Block AddBlock();
+        void RemoveBlock(Block block);
     }
 }

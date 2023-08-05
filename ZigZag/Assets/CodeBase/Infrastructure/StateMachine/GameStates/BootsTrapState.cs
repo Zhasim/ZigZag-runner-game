@@ -2,6 +2,7 @@ using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.StateMachine.Machine;
 using CodeBase.Infrastructure.StateMachine.States;
+using CodeBase.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

@@ -9,21 +9,24 @@ namespace CodeBase.Infrastructure.Services.Pools.DiamondPool
     public class DiamondPool : IDiamondPool
     {
         private readonly Diamond.Pool _pool;
-        private readonly List<Diamond> _blocks = new();
+        private readonly HashSet<Diamond> _diamonds = new();
 
         public DiamondPool(Diamond.Pool pool) => 
             _pool = pool;
+        public Diamond AddDiamond()
         
-        public void AddFoo() =>     
-            _blocks.Add(_pool.Spawn());
-
-        public void RemoveFoo()
         {
-            if (_blocks.Count > 0)
+            Diamond diamond = _pool.Spawn();
+            _diamonds.Add(diamond);
+            return diamond;
+        }
+
+        public void RemoveDiamond(Diamond diamond)
+        {
+            if (_diamonds.Contains(diamond))
             {
-                Diamond foo = _blocks[0];
-                _pool.Despawn(foo);
-                _blocks.Remove(foo);
+                _pool.Despawn(diamond);
+                _diamonds.Remove(diamond);
             }
         }
     }

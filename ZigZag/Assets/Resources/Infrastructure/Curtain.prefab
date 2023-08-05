@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 2456362620209919393}
   - component: {fileID: 2456362620209919394}
   - component: {fileID: 2456362620209919455}
-  - component: {fileID: 8272579266004929855}
+  - component: {fileID: 5152801460567291058}
   m_Layer: 0
   m_Name: Curtain
   m_TagString: LoadingCurtain
@@ -269,7 +269,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &8272579266004929855
+--- !u!114 &5152801460567291058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

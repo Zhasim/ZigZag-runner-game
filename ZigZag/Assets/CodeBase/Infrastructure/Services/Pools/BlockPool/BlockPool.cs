@@ -5,22 +5,25 @@ namespace CodeBase.Infrastructure.Services.Pools.BlockPool
 {
     public class BlockPool : IBlockPool
     {
-        private readonly Block.Pool _pool;
-        private readonly List<Block> _blocks = new();
+        private readonly Block.Pool _blockMemoryPool;
+        private readonly HashSet<Block> _blocks = new();
 
-        public BlockPool(Block.Pool pool) => 
-            _pool = pool;
+        public BlockPool(Block.Pool blockMemoryPool) => 
+            _blockMemoryPool = blockMemoryPool;
         
-        public void AddFoo() =>     
-            _blocks.Add(_pool.Spawn());
-
-        public void RemoveFoo()
+        public Block AddBlock()
         {
-            if (_blocks.Count > 0)
+            Block block = _blockMemoryPool.Spawn();
+            _blocks.Add(block);
+            return block;
+        }
+
+        public void RemoveBlock(Block block)
+        {
+            if (_blocks.Contains(block))
             {
-                Block foo = _blocks[0];
-                _pool.Despawn(foo);
-                _blocks.Remove(foo);
+                _blockMemoryPool.Despawn(block);
+                _blocks.Remove(block);
             }
         }
     }

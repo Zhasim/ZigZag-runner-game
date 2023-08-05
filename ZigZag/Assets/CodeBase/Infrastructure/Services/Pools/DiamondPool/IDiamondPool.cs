@@ -1,10 +1,10 @@
-using UnityEngine;
+using CodeBase.Entity.Diamonds;
 
 namespace CodeBase.Infrastructure.Services.Pools.DiamondPool
 {
     public interface IDiamondPool
     {
-        void AddFoo();
-        void RemoveFoo();
+        Diamond AddDiamond();
+        void RemoveDiamond(Diamond diamond);
     }
 }

@@ -26,10 +26,12 @@ namespace CodeBase.Logic
             _inputService = inputService;
             _coroutineRunner = coroutineRunner;
         }
-
-
+        
         public void Initialize()
         {
+            _tileGenerator.Init();
+            _tileGenerator.IsSpawning = true;
+            _tileGenerator.StartSpawnRepeater();
         }
 
         public void Tick()

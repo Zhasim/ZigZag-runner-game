@@ -4,7 +4,6 @@ using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
 using CodeBase.Infrastructure.Services.Input;
-using CodeBase.Infrastructure.StateMachine.Machine;
 using Zenject;
 
 namespace CodeBase.DI.MonoInstallers

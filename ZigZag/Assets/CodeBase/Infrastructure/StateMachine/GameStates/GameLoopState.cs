@@ -21,5 +21,6 @@ namespace CodeBase.Infrastructure.StateMachine.GameStates
         public void Exit()
         {
         }
+        
     }
 }
