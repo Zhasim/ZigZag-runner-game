@@ -11,7 +11,7 @@ namespace CodeBase.DI.MonoInstallers
     {
         public override void InstallBindings()
         {
-            BindAssetProvider();
+            BindResourceLoader();
 
             BindGameFactory();
 
@@ -20,7 +20,7 @@ namespace CodeBase.DI.MonoInstallers
             BindUIFactory();
         }
 
-        private void BindAssetProvider()
+        private void BindResourceLoader()
         {
             Container
                 .Bind<IResourceLoader>()

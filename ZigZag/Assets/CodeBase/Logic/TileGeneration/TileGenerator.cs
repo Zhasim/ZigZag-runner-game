@@ -65,6 +65,17 @@ namespace CodeBase.Logic.TileGeneration
         
         private void SpawnTile()  
         {  
+            Vector3 currentPosition = CalculateNextBlockPosition(); 
+            Block currentBlock = _blockPool.AddBlock();  
+
+            currentBlock.transform.position = currentPosition;  
+            _lastBlockPosition = currentPosition;  
+            
+            SpawnDiamond();  
+        } 
+        
+        private Vector3 CalculateNextBlockPosition()
+        {
             int randomValue = _randomService.Next(0, 2);  
             Vector3 currentPosition = _lastBlockPosition;  
 
@@ -73,15 +84,12 @@ namespace CodeBase.Logic.TileGeneration
             else  
                 currentPosition.z -= BLOCK_STEP;  
 
-            Block currentBlock = _blockPool.AddBlock();  
-            currentBlock.transform.position = currentPosition;  
-            _lastBlockPosition = currentBlock.transform.position;  
-            
-            int chanceToDiamond = _randomService.Next(0, 4);  
-            SpawnDiamond(chanceToDiamond);  
-        } 
-        private void SpawnDiamond(int chanceToDiamond)  
+            return currentPosition;
+        }
+        
+        private void SpawnDiamond()  
         {  
+            int chanceToDiamond = _randomService.Next(0, 4); 
             if (chanceToDiamond == 0)  
             {  
                 Diamond diamond = _diamondPool.AddDiamond();
