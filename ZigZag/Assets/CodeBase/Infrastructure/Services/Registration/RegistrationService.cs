@@ -15,17 +15,17 @@ namespace CodeBase.Infrastructure.Services.Registration
                 Register(progressReader);
         }
 
-        public void Register(IProgressReader progressReader)
-        {
-            if (progressReader is IProgressWriter progressWriter)
-                ProgressWriters.Add(progressWriter);
-            ProgressReaders.Add(progressReader);
-        }
-
         public void CleanUp()
         {
             ProgressReaders.Clear();
             ProgressWriters.Clear();
+        }
+
+        private void Register(IProgressReader progressReader)
+        {
+            if (progressReader is IProgressWriter progressWriter)
+                ProgressWriters.Add(progressWriter);
+            ProgressReaders.Add(progressReader);
         }
     }
     

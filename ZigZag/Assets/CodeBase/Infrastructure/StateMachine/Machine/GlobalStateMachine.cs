@@ -12,6 +12,9 @@ namespace CodeBase.Infrastructure.StateMachine.Machine
         public GlobalStateMachine() =>
             _states = new Dictionary<Type, IExitState>();
 
+        public void RegisterState<TState>(TState state) where TState : IExitState =>
+            _states.Add(typeof(TState), state);
+
         public void Enter<TState>() where TState : class, IState
         {
             IState state = ChangeState<TState>();
@@ -23,9 +26,6 @@ namespace CodeBase.Infrastructure.StateMachine.Machine
             TState state = ChangeState<TState>();
             state?.Enter(payload);
         }
-
-        public void RegisterState<TState>(TState state) where TState : IExitState =>
-            _states.Add(typeof(TState), state);
 
         private TState ChangeState<TState>() where TState : class, IExitState
         {

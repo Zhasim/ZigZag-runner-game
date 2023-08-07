@@ -11,6 +11,5 @@ namespace CodeBase.Infrastructure.Services.Registration
 
         void CleanUp();
         void RegisterWatchers(GameObject gameObject);
-        void Register(IProgressReader progressReader);
     }
 }

@@ -23,8 +23,8 @@ namespace CodeBase.DI.MonoInstallers
         private void BindAssetProvider()
         {
             Container
-                .Bind<IAssetProvider>()
-                .To<AssetProvider>()
+                .Bind<IResourceLoader>()
+                .To<ResourceLoader>()
                 .AsSingle();
         }
 
