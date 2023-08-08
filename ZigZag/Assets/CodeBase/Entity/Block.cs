@@ -10,7 +10,7 @@ namespace CodeBase.Entity
         private const float DelayBeforeFalling = 0.1f;
         private Rigidbody _rigidbody;
 
-        private void Awake() =>   
+        private void Start() =>   
             _rigidbody = GetComponent<Rigidbody>();
 
         private void OnCollisionExit(Collision collision)
