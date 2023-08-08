@@ -1,5 +1,6 @@
-using CodeBase.Infrastructure.StateMachine.Machine;
-using CodeBase.Infrastructure.StateMachine.Provider;
+using CodeBase.Infrastructure.StateMachines.GameLoopMachine;
+using CodeBase.Infrastructure.StateMachines.Machines;
+using CodeBase.Infrastructure.StateMachines.Provider;
 using Zenject;
 
 namespace CodeBase.DI.MonoInstallers
@@ -8,6 +9,7 @@ namespace CodeBase.DI.MonoInstallers
     {
         public override void InstallBindings()
         {
+            BindGameLoopStateMachine();
             BindGlobalStateMachineProvider();
             BindGlobalStateMachine();
         }
@@ -27,6 +29,14 @@ namespace CodeBase.DI.MonoInstallers
             Container
                 .Bind<IGlobalStateMachine>()
                 .FromMethod(GetStateMachine)
+                .AsSingle();
+        }
+
+        private void BindGameLoopStateMachine()
+        {
+            Container
+                .Bind<IGameLoopStateMachine>()
+                .To<GameLoopStateMachine>()
                 .AsSingle();
         }
         

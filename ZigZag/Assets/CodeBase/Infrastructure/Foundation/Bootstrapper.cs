@@ -1,6 +1,6 @@
-using CodeBase.Infrastructure.StateMachine.GameStates;
-using CodeBase.Infrastructure.StateMachine.Machine;
-using CodeBase.Infrastructure.StateMachine.Provider;
+using CodeBase.Infrastructure.StateMachines.GameStates;
+using CodeBase.Infrastructure.StateMachines.Machines;
+using CodeBase.Infrastructure.StateMachines.Provider;
 using UnityEngine;
 using Zenject;
 

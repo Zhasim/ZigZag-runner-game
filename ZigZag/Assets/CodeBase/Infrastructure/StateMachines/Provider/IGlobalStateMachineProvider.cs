@@ -1,6 +1,6 @@
-using CodeBase.Infrastructure.StateMachine.Machine;
+using CodeBase.Infrastructure.StateMachines.Machines;
 
-namespace CodeBase.Infrastructure.StateMachine.Provider
+namespace CodeBase.Infrastructure.StateMachines.Provider
 {
     public interface IGlobalStateMachineProvider
     {

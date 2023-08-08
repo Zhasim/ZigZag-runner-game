@@ -56,7 +56,7 @@ namespace CodeBase.DI.MonoInstallers
                 .To<SaveLoadService>()
                 .AsSingle();
         }
-        
+
         private void BindAdsService()
         {
             Container

@@ -1,12 +1,11 @@
 using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.StaticData;
-using CodeBase.Infrastructure.StateMachine.Machine;
-using CodeBase.Infrastructure.StateMachine.States;
-using CodeBase.StaticData;
+using CodeBase.Infrastructure.StateMachines.Machines;
+using CodeBase.Infrastructure.StateMachines.States;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CodeBase.Infrastructure.StateMachine.GameStates
+namespace CodeBase.Infrastructure.StateMachines.GameStates
 {
     public class BootstrapState : IState
     {

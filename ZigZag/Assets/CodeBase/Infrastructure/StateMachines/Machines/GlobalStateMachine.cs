@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using CodeBase.Infrastructure.StateMachine.States;
+using CodeBase.Infrastructure.StateMachines.States;
 
-namespace CodeBase.Infrastructure.StateMachine.Machine
+namespace CodeBase.Infrastructure.StateMachines.Machines
 {
     public class GlobalStateMachine : IGlobalStateMachine
     {

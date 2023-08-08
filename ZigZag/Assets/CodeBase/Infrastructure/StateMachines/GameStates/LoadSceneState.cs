@@ -1,13 +1,13 @@
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
 using CodeBase.Infrastructure.Services.Factory;
-using CodeBase.Infrastructure.StateMachine.Machine;
-using CodeBase.Infrastructure.StateMachine.States;
+using CodeBase.Infrastructure.StateMachines.Machines;
+using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.Logic.Camera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CodeBase.Infrastructure.StateMachine.GameStates
+namespace CodeBase.Infrastructure.StateMachines.GameStates
 {
     public class LoadSceneState : IPayloadState<string>
     {

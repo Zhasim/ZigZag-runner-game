@@ -1,13 +1,13 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.Progress;
 using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.Infrastructure.StateMachine.Machine;
-using CodeBase.Infrastructure.StateMachine.States;
+using CodeBase.Infrastructure.StateMachines.Machines;
+using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace CodeBase.Infrastructure.StateMachine.GameStates
+namespace CodeBase.Infrastructure.StateMachines.GameStates
 {
     public class LoadProgressState : IState
     {

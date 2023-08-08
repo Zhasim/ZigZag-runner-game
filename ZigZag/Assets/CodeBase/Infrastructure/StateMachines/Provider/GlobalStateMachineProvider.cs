@@ -5,11 +5,12 @@ using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Progress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
-using CodeBase.Infrastructure.StateMachine.GameStates;
-using CodeBase.Infrastructure.StateMachine.Machine;
+using CodeBase.Infrastructure.StateMachines.GameLoopMachine;
+using CodeBase.Infrastructure.StateMachines.GameStates;
+using CodeBase.Infrastructure.StateMachines.Machines;
 using Zenject;
 
-namespace CodeBase.Infrastructure.StateMachine.Provider
+namespace CodeBase.Infrastructure.StateMachines.Provider
 {
     public class GlobalStateMachineProvider : IGlobalStateMachineProvider
     {
@@ -37,7 +38,8 @@ namespace CodeBase.Infrastructure.StateMachine.Provider
                 _diContainer.Resolve<IGameFactory>());
             _stateMachine.RegisterState(loadSceneState);
         
-            GameLoopState gameLoopState = new GameLoopState(_stateMachine);
+            GameLoopState gameLoopState = new GameLoopState(_stateMachine,
+                _diContainer.Resolve<IGameLoopStateMachine>());
             _stateMachine.RegisterState(gameLoopState);
         }
 
