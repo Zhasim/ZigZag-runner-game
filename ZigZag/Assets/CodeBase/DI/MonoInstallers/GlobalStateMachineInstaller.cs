@@ -1,4 +1,5 @@
 using CodeBase.Infrastructure.StateMachines.GameLoopMachine;
+using CodeBase.Infrastructure.StateMachines.GameStates;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.Provider;
 using Zenject;
@@ -14,7 +15,6 @@ namespace CodeBase.DI.MonoInstallers
             BindGlobalStateMachine();
         }
         
-
         private void BindGlobalStateMachineProvider()
         {
             Container

@@ -1,4 +1,6 @@
+using CodeBase.DI.SubContainers;
 using CodeBase.Infrastructure.Services.Ads;
+using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.Progress;
 using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Infrastructure.Services.Registration;
@@ -12,6 +14,8 @@ namespace CodeBase.DI.MonoInstallers
     {
         public override void InstallBindings()
         {
+            BindInputService();
+            
             BindRandomService();
             
             BindStaticDataService();   
@@ -70,6 +74,15 @@ namespace CodeBase.DI.MonoInstallers
             Container
                 .Bind<IRegistrationService>()
                 .To<RegistrationService>()
+                .AsSingle();
+        }
+        
+        private void BindInputService()
+        {
+            Container
+                .Bind<IInputService>()
+                .FromSubContainerResolve()
+                .ByInstaller<InputInstaller>()
                 .AsSingle();
         }
     }

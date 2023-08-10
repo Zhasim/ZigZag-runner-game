@@ -17,8 +17,6 @@ namespace CodeBase.DI.MonoInstallers
             BindSceneLoader();
             
             BindLoadingCurtain();
-
-            BindInput();
         }
         
         private void BindCoroutineRunner()
@@ -44,15 +42,6 @@ namespace CodeBase.DI.MonoInstallers
                 .Bind<ILoadingCurtain>()
                 .To<LoadingCurtain>()
                 .FromComponentInNewPrefabResource(AssetPath.CurtainPath)
-                .AsSingle();
-        }
-
-        private void BindInput()
-        {
-            Container
-                .Bind<IInputService>()
-                .FromSubContainerResolve()
-                .ByInstaller<InputInstaller>()
                 .AsSingle();
         }
     }

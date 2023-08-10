@@ -14,32 +14,32 @@ namespace CodeBase.Infrastructure.StateMachines.Provider
 {
     public class GlobalStateMachineProvider : IGlobalStateMachineProvider
     {
-        private readonly DiContainer _diContainer;
+        private readonly DiContainer _container;
         private readonly GlobalStateMachine _stateMachine;
         
-        public GlobalStateMachineProvider(DiContainer diContainer)
+        public GlobalStateMachineProvider(DiContainer container)
         {
-            _diContainer = diContainer;
+            _container = container;
             _stateMachine = new GlobalStateMachine();
             
             BootstrapState bootsTrapState = new BootstrapState(_stateMachine,
-                _diContainer.Resolve<IAdsService>(), 
-                _diContainer.Resolve<IStaticDataService>());
+                _container.Resolve<IAdsService>(), 
+                _container.Resolve<IStaticDataService>());
             _stateMachine.RegisterState(bootsTrapState);
-        
+            
             LoadProgressState loadProgressState = new LoadProgressState(_stateMachine,
-                _diContainer.Resolve<IProgressService>(),
-                _diContainer.Resolve<ISaveLoadService>());
+                _container.Resolve<IProgressService>(),
+                _container.Resolve<ISaveLoadService>());
             _stateMachine.RegisterState(loadProgressState);
-        
+            
             LoadSceneState loadSceneState = new LoadSceneState(_stateMachine,
-                _diContainer.Resolve<ISceneLoader>(),
-                _diContainer.Resolve<ILoadingCurtain>(),
-                _diContainer.Resolve<IGameFactory>());
+                _container.Resolve<ISceneLoader>(),
+                _container.Resolve<ILoadingCurtain>(),
+                _container.Resolve<IGameFactory>());
             _stateMachine.RegisterState(loadSceneState);
-        
+            
             GameLoopState gameLoopState = new GameLoopState(_stateMachine,
-                _diContainer.Resolve<IGameLoopStateMachine>());
+                _container.Resolve<IGameLoopStateMachine>());
             _stateMachine.RegisterState(gameLoopState);
         }
 
