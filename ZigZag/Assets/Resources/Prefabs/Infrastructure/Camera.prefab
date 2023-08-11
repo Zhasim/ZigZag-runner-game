@@ -69,7 +69,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 17
+  orthographic size: 23
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -108,7 +108,7 @@ MonoBehaviour:
   rotationAngleX: 35
   rotationAngleY: 125
   rotationAngleZ: 0
-  distanceX: -6
+  distanceX: -4.3
   distanceY: 0
   distanceZ: 20
   offsetY: 1

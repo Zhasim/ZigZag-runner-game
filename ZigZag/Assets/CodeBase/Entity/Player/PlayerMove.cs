@@ -6,8 +6,12 @@ namespace CodeBase.Entity.Player
 {
     public class PlayerMove : MonoBehaviour
     {
-        [SerializeField] private float speed;
-
+        [SerializeField] private float initialSpeed;
+        [SerializeField] private float maxSpeed;
+        [SerializeField] private float accelerationRate;
+        
+        [SerializeField] private float _currentSpeed;
+        
         private bool _hasGameStarted;
         private bool _hasGameFinished;
         
@@ -23,18 +27,24 @@ namespace CodeBase.Entity.Player
         private void Awake() => 
             _rigidbody = GetComponent<Rigidbody>();
 
-        private void Start() => 
+        private void Start()
+        {
+            _currentSpeed = initialSpeed;
             _isMovingForward = true;
+        }
 
         private void Update()
         {
-            if (!_hasGameStarted)
+            HandleInput();
+            UpdateCurrentSpeed();
+        }
+
+        private void HandleInput()
+        {
+            if (!_hasGameStarted && _inputService.GetInputDown())
             {
-                if (_inputService.GetInputDown())
-                {
-                    StartMove();
-                    _hasGameStarted = true;
-                }
+                StartMove();
+                _hasGameStarted = true;
             }
             
             if (_inputService.GetInputDown()) 
@@ -43,15 +53,24 @@ namespace CodeBase.Entity.Player
 
         private void ChangeDirection()
         {
-            _rigidbody.velocity = (_isMovingForward ? Vector3.right : Vector3.back) * speed;
+            _rigidbody.velocity = (_isMovingForward ? Vector3.right : Vector3.back) * _currentSpeed;
             _isMovingForward = !_isMovingForward;
         }
-        
+
+        private void UpdateCurrentSpeed()
+        {
+            if (_hasGameStarted && _currentSpeed < maxSpeed)
+            {
+                _currentSpeed += accelerationRate * Time.deltaTime;
+                _currentSpeed = Mathf.Clamp(_currentSpeed, initialSpeed, maxSpeed);
+            }
+        }
+
         private void StartMove()
         {
             if(_hasGameStarted)
                 return;
-            _rigidbody.velocity = Vector3.right * (speed * Time.deltaTime);
+            _rigidbody.velocity = Vector3.right * (_currentSpeed * Time.deltaTime);
         }
     }
 }
