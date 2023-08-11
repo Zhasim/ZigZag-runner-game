@@ -1,11 +1,10 @@
-using System;
 using CodeBase.Infrastructure.Services.Input;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Entity
+namespace CodeBase.Entity.Player
 {
-    public class Player : MonoBehaviour
+    public class PlayerMove : MonoBehaviour
     {
         [SerializeField] private float speed;
 
@@ -14,7 +13,6 @@ namespace CodeBase.Entity
         
         private bool _isMovingForward;
         private Rigidbody _rigidbody;
-        public event Action OnPlayerDeath;
 
         private IInputService _inputService;
 
@@ -30,8 +28,6 @@ namespace CodeBase.Entity
 
         private void Update()
         {
-            CheckGround();
-
             if (!_hasGameStarted)
             {
                 if (_inputService.GetInputDown())
@@ -56,21 +52,6 @@ namespace CodeBase.Entity
             if(_hasGameStarted)
                 return;
             _rigidbody.velocity = Vector3.right * (speed * Time.deltaTime);
-        }
-
-        private void CheckGround()
-        {
-            if (!Physics.Raycast(transform.position, Vector3.down, 2.0f))
-            {
-                _rigidbody.velocity = Vector3.down * 25f;
-                if (!_hasGameFinished)
-                {
-                    _hasGameFinished = true;
-                    OnPlayerDeath?.Invoke();
-                    _rigidbody.constraints = RigidbodyConstraints.None;
-                    Destroy(gameObject, 5.0f);
-                }
-            }
         }
     }
 }

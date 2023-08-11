@@ -1,3 +1,4 @@
+using CodeBase.Entity.Player;
 using UnityEngine;
 
 namespace CodeBase.Logic.Camera
@@ -14,28 +15,54 @@ namespace CodeBase.Logic.Camera
         
         public float offsetY = -6;
 
-        [SerializeField] private Transform target;
-        
+        [SerializeField] private PlayerDeath _player;
+        [SerializeField] private Transform _target;
+        [SerializeField] private bool _isPlayerDied;
+
+        private void Start() => 
+            _player.Died += OnPlayerDied;
+
+        private void OnDestroy() =>
+            _player.Died -= OnPlayerDied;
+
         private void LateUpdate()
         {
-            if (target == null)
-                return;
-            Quaternion rotation = Quaternion.Euler(rotationAngleX, rotationAngleY, rotationAngleZ);
-            Vector3 position = rotation * new Vector3(distanceX, distanceY, -distanceZ) + FollowingPointPosition();
-
-            transform.rotation = rotation;
-            transform.position = position;
+            if (_target != null) 
+                ChasingTarget();
         }
 
-        public void Follow(GameObject target) => 
-            this.target = target.transform;
+        private void ChasingTarget()
+        {
+            if (!_isPlayerDied)
+            {
+                Quaternion rotation = Quaternion.Euler(rotationAngleX, rotationAngleY, rotationAngleZ);
+                Vector3 position = rotation * new Vector3(distanceX, distanceY, -distanceZ) + FollowingPointPosition();
+            
+                transform.rotation = rotation;
+                transform.position = position;
+            }
+        }
+
+        public void Init(GameObject target, PlayerDeath playerDeath)
+        {
+            _target = target.transform;
+            _player = playerDeath;
+        }
 
         private Vector3 FollowingPointPosition()
         {
-            Vector3 followingPosition = target.position;
+            Vector3 followingPosition = _target.position;
             followingPosition.y += offsetY;
             
             return followingPosition;
+        }
+
+        private void OnPlayerDied()
+        {
+            _isPlayerDied = true;
+            _target = null;
+            
+            Debug.Log("Player has died, camera tracking stopped.");
         }
     }
 }
