@@ -62,9 +62,9 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
             Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
         }
 
-        private static void CameraFollow(GameObject hero)
-        {
-            if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
-        }
+        // private static void CameraFollow(GameObject hero)
+        // {
+        //     if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
+        // }
     }
 }

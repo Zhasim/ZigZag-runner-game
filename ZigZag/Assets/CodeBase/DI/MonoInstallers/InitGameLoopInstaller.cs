@@ -1,3 +1,4 @@
+using CodeBase.Entity.Player;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Logic.Camera;
 using UnityEngine;
@@ -27,13 +28,14 @@ namespace CodeBase.DI.MonoInstallers
         {
             GameObject player = Container
                 .InstantiatePrefabResource(AssetPath.PLAYER);
+            PlayerDeath playerDeath = player.GetComponent<PlayerDeath>();
             
-            CameraFollow(player);
+            CameraFollow(player, playerDeath);
         }
         
-        private static void CameraFollow(GameObject hero)
+        private static void CameraFollow(GameObject target, PlayerDeath player)
         {
-            if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
+            if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Init(target, player);
         }
     }
 }

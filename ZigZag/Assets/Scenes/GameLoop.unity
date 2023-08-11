@@ -422,4 +422,5 @@ MonoBehaviour:
   distanceY: 0
   distanceZ: 20
   offsetY: 1
-  target: {fileID: 0}
+  _player: {fileID: -7634714864373184202, guid: 2f6f0f06690c5ab47b5decfb1b41323e, type: 3}
+  _target: {fileID: 0}
