@@ -24,7 +24,7 @@ namespace CodeBase.DI.MonoInstallers
             Container
                 .Bind<ICoroutineRunner>()
                 .To<CoroutineRunner>()
-                .FromComponentInNewPrefabResource(AssetPath.CoroutineRunnerPath)
+                .FromComponentInNewPrefabResource(AssetPath.COROUTINE_RUNNER)
                 .AsSingle();
         }
 
@@ -41,7 +41,7 @@ namespace CodeBase.DI.MonoInstallers
             Container
                 .Bind<ILoadingCurtain>()
                 .To<LoadingCurtain>()
-                .FromComponentInNewPrefabResource(AssetPath.CurtainPath)
+                .FromComponentInNewPrefabResource(AssetPath.CURTAIN)
                 .AsSingle();
         }
     }

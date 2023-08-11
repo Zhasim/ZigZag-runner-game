@@ -3,13 +3,14 @@ namespace CodeBase.Infrastructure.AssetManagement
     public static class AssetPath
     {
         //- Infrastructure
-        public const string CoroutineRunnerPath = "Infrastructure/CoroutineRunner";
-        public const string CurtainPath = "Infrastructure/Curtain";
-    
+        public const string COROUTINE_RUNNER = "Prefabs/Infrastructure/CoroutineRunner";
+        public const string CURTAIN = "Prefabs/Infrastructure/Curtain";
+        public const string CAMERA = "Prefabs/Infrastructure/Camera";
+
         //- GameLoop
-        public const string BLOCK = "Prefabs/Block";
-        public const string DIAMOND = "Prefabs/Diamond";
-        public const string INIT_PLATFORM = "Prefabs/InitPlatform";
-        public const string PLAYER = "Prefabs/Player";
+        public const string BLOCK = "Prefabs/Gameplay/Block";
+        public const string DIAMOND = "Prefabs/Gameplay/Diamond";
+        public const string INIT_PLATFORM = "Prefabs/Gameplay/InitPlatform";
+        public const string PLAYER = "Prefabs/Gameplay/Player";
    }
 }

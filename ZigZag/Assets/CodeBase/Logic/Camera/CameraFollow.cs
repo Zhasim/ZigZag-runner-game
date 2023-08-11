@@ -1,5 +1,6 @@
 using CodeBase.Entity.Player;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Logic.Camera
 {
@@ -18,7 +19,7 @@ namespace CodeBase.Logic.Camera
         [SerializeField] private PlayerDeath _player;
         [SerializeField] private Transform _target;
         [SerializeField] private bool _isPlayerDied;
-
+        
         private void Start() => 
             _player.Died += OnPlayerDied;
 
@@ -31,6 +32,12 @@ namespace CodeBase.Logic.Camera
                 ChasingTarget();
         }
 
+        public void InitFollow(PlayerDeath player, GameObject target)
+        {
+            _player = player;
+            _target = target.transform;
+        }
+
         private void ChasingTarget()
         {
             if (!_isPlayerDied)
@@ -41,12 +48,6 @@ namespace CodeBase.Logic.Camera
                 transform.rotation = rotation;
                 transform.position = position;
             }
-        }
-
-        public void Init(GameObject target, PlayerDeath playerDeath)
-        {
-            _target = target.transform;
-            _player = playerDeath;
         }
 
         private Vector3 FollowingPointPosition()
