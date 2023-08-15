@@ -36,35 +36,19 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
         private void OnLoaded()
         {
-            InitGameWorld();
+            InitScene();
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InitGameWorld()
+        private void InitScene()
         {
-             // GameObject hero = _factory.CreatePlayer();
-             // CameraFollow(hero);
-
-            //InitInitialPlatform();
-            Debug.Log("Game World INIT");
+            Debug.Log("Scene initialized");
         }
-
-        // private void InitInitialPlatform()
-        // {
-        //     _factory.CreateInitPlatform();
-        //     _factory.CreateBlock();
-        //     _factory.CreateDiamond();
-        // }
 
         public void Exit()
         {
             _loadingCurtain.Hide();
             Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
         }
-
-        // private static void CameraFollow(GameObject hero)
-        // {
-        //     if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
-        // }
     }
 }
