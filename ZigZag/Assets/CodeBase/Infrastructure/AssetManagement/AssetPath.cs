@@ -6,6 +6,7 @@ namespace CodeBase.Infrastructure.AssetManagement
         public const string COROUTINE_RUNNER = "Prefabs/Infrastructure/CoroutineRunner";
         public const string CURTAIN = "Prefabs/Infrastructure/Curtain";
         public const string CAMERA = "Prefabs/Infrastructure/Camera";
+        public const string SAVER = "Prefabs/Infrastructure/Saver_test";
 
         //- GameLoop
         public const string BLOCK = "Prefabs/Gameplay/Block";

@@ -7,7 +7,7 @@ namespace CodeBase.Editor.Tools
 {
     public static class ResetPrefs
     {
-        [MenuItem("Tools/Clear prefs")]
+        [MenuItem("Tools/Custom Tools/Clear prefs")]
         public static void ClearPrefs()
         {
             PlayerPrefs.DeleteAll();

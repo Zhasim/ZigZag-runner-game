@@ -43,9 +43,9 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private void LoadProgressOrInitNew()
         {
             OverallProgress loadedProgress = _saveLoadService.LoadProgress();
-            _progressService.Progress = loadedProgress ?? _progressGenerator.GenerateNewProgress();
+            _progressService.OverallProgress = loadedProgress ?? _progressGenerator.GenerateNewProgress();
         }
-        
+
         public void Exit() => 
             _logger.LogInfo($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
         

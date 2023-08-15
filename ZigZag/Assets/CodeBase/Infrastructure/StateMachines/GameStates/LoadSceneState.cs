@@ -1,3 +1,4 @@
+using CodeBase.Entity.Player;
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
 using CodeBase.Infrastructure.Services.Factory;
@@ -47,30 +48,24 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
         private void InitGameWorld()
         {
-             // GameObject hero = _factory.CreatePlayer();
-             // CameraFollow(hero);
-
-            //InitInitialPlatform();
+             GameObject player = _factory.CreatePlayer();
+             PlayerDeath playerDeath = player.GetComponent<PlayerDeath>();
+             
+             CameraInit(playerDeath, player);
+                 
             _logger.LogInfo("Game World INIT");
         }
-
-        // private void InitInitialPlatform()
-        // {
-        //     _factory.CreateInitPlatform();
-        //     _factory.CreateBlock();
-        //     _factory.CreateDiamond();
-        // }
-
+        
         public void Exit()
         {
             _loadingCurtain.Hide();
             _logger.LogInfo($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
         }
 
-        // private static void CameraFollow(GameObject hero)
-        // {
-        //     if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
-        // }
+        private void CameraInit(PlayerDeath player, GameObject target)
+        {
+            if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().InitFollow(player, target);
+        }
         
         public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadSceneState>
         {

@@ -5,13 +5,13 @@ namespace CodeBase.Editor.Tools
 {
     public static class AutoSaveTool
     {
-        [MenuItem("Tools/Enable Auto Save")]
+        [MenuItem("Tools/Custom Tools/Enable Auto Save")]
         public static void EnableAutoSave()
         {
             EditorApplication.playModeStateChanged += AutoSaveOnPlayModeChanged;
         }
 
-        [MenuItem("Tools/Disable Auto Save")]
+        [MenuItem("Tools/Custom Tools/Disable Auto Save")]
         public static void DisableAutoSave()
         {
             EditorApplication.playModeStateChanged -= AutoSaveOnPlayModeChanged;

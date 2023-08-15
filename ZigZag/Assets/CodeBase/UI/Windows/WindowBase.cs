@@ -11,7 +11,7 @@ namespace CodeBase.UI.Windows
         public Button closeButton;
         
         protected IProgressService ProgressService;
-        protected OverallProgress Progress => ProgressService.Progress;
+        protected OverallProgress Progress => ProgressService.OverallProgress;
 
         public void Construct(IProgressService progressService) => 
             ProgressService = progressService;

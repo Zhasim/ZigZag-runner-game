@@ -30,9 +30,9 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
             try
             {
                 foreach (IProgressWriter progressWriter in _registrationService.ProgressWriters)
-                    progressWriter.WriteProgress(_progressService.Progress);
+                    progressWriter.WriteProgress(_progressService.OverallProgress);
             
-                PlayerPrefs.SetString(OVERALL_PROGRESS, _progressService.Progress.ToJson());
+                PlayerPrefs.SetString(OVERALL_PROGRESS, _progressService.OverallProgress.ToJson());
             }
             catch (Exception exception)
             {
@@ -44,7 +44,7 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
         {
             try
             {
-                var serializedProgress = PlayerPrefs.GetString(OVERALL_PROGRESS);
+                string serializedProgress = PlayerPrefs.GetString(OVERALL_PROGRESS);
                 if (string.IsNullOrEmpty(serializedProgress))
                     return null;
                 
@@ -61,7 +61,7 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
         {
             try
             {
-                return JsonUtility.FromJson<OverallProgress>(serializedProgress);
+                return serializedProgress?.ToDeserialized<OverallProgress>();
             }
             catch (Exception ex)
             {

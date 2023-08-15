@@ -4,6 +4,6 @@ namespace CodeBase.Infrastructure.Services.Progress.Service
 {
     public interface IProgressService
     {
-        OverallProgress Progress { get; set; }
+        OverallProgress OverallProgress { get; set; }
     }
 }

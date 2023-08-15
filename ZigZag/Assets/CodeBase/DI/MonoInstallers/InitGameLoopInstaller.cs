@@ -10,15 +10,15 @@ namespace CodeBase.DI.MonoInstallers
     {
         public override void InstallBindings()
         {
-            InstantiateCamera();
+            InstantiateSaver();
             InstantiateInitPlatform();
-            InstantiatePlayer();
+            //InstantiatePlayer();
         }
-
-        private void InstantiateCamera()
+        
+        private void InstantiateSaver()
         {
             Container
-                .InstantiatePrefabResource(AssetPath.CAMERA);
+                .InstantiatePrefabResource(AssetPath.SAVER);
         }
 
         private void InstantiateInitPlatform()
@@ -31,18 +31,18 @@ namespace CodeBase.DI.MonoInstallers
                 .InstantiatePrefabResource(AssetPath.DIAMOND);
         }
 
-        private void InstantiatePlayer()
-        {
-            GameObject player = Container
-                .InstantiatePrefabResource(AssetPath.PLAYER);
-            PlayerDeath playerDeath = player.GetComponent<PlayerDeath>();
-            
-            CameraInit(playerDeath, target: player);
-        }
+        // private void InstantiatePlayer()
+        // {
+        //     GameObject player = Container
+        //         .InstantiatePrefabResource(AssetPath.PLAYER);
+        //     PlayerDeath playerDeath = player.GetComponent<PlayerDeath>();
+        //     
+        //     CameraInit(playerDeath, target: player);
+        // }
         
-        private void CameraInit(PlayerDeath player, GameObject target)
-        {
-            if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().InitFollow(player, target);
-        }
+        // private void CameraInit(PlayerDeath player, GameObject target)
+        // {
+        //     if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().InitFollow(player, target);
+        // }
     }
 }

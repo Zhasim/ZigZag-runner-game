@@ -27,6 +27,14 @@ namespace CodeBase.Infrastructure.Services.Factory
 
             return instance;
         }
+        public GameObject CreatePlayer()
+        {
+            GameObject prefab = _resourceLoader.Load(AssetPath.PLAYER);
+            GameObject instance = _instantiator.InstantiatePrefab(prefab);
+            _registrationService.RegisterWatchers(instance);
+
+            return instance;
+        }
 
         public GameObject CreateInitPlatform(Vector3 at)
         {
