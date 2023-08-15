@@ -3,7 +3,7 @@ using CodeBase.Infrastructure.StateMachines.GameStates;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using Zenject;
 
-namespace CodeBase.DI.MonoInstallers
+namespace CodeBase.DI.SubContainers
 {
     public class GlobalStateMachineInstaller : Installer<GlobalStateMachineInstaller>
     {
