@@ -40,3 +40,6 @@ Icon?
 ehthumbs.db
 Thumbs.db
 *.log
+
+ZigZag/Logs/AssetImportWorker0.log
+ZigZag/Logs/AssetImportWorker1.log

@@ -45,5 +45,8 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         public void Tick()
         {
         }
+        public class Factory : PlaceholderFactory<IGlobalStateMachine, GameLoopState>
+        {
+        }
     }
 }

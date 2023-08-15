@@ -6,6 +6,7 @@ using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.Logic.Camera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace CodeBase.Infrastructure.StateMachines.GameStates
 {
@@ -36,19 +37,39 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
         private void OnLoaded()
         {
-            InitScene();
+            InitGameWorld();
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InitScene()
+        private void InitGameWorld()
         {
-            Debug.Log("Scene initialized");
+             // GameObject hero = _factory.CreatePlayer();
+             // CameraFollow(hero);
+
+            //InitInitialPlatform();
+            Debug.Log("Game World INIT");
         }
+
+        // private void InitInitialPlatform()
+        // {
+        //     _factory.CreateInitPlatform();
+        //     _factory.CreateBlock();
+        //     _factory.CreateDiamond();
+        // }
 
         public void Exit()
         {
             _loadingCurtain.Hide();
             Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+        }
+
+        // private static void CameraFollow(GameObject hero)
+        // {
+        //     if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
+        // }
+        
+        public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadSceneState>
+        {
         }
     }
 }
