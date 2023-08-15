@@ -1,10 +1,13 @@
 using CodeBase.DI.SubContainers;
 using CodeBase.Infrastructure.Services.Ads;
+using CodeBase.Infrastructure.Services.CustomLogger;
+using CodeBase.Infrastructure.Services.Disposal;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.Progress;
+using CodeBase.Infrastructure.Services.Progress.Generator;
+using CodeBase.Infrastructure.Services.Progress.Registration;
 using CodeBase.Infrastructure.Services.Progress.Service;
 using CodeBase.Infrastructure.Services.Randomizer;
-using CodeBase.Infrastructure.Services.Registration;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using Zenject;
@@ -17,35 +20,29 @@ namespace CodeBase.DI.MonoInstallers
         {
             BindInputService();
             
+            BindCustomLogger();
+
+            BindDisposer();
+            
             BindRandomService();
+
+            BindProgress();
             
-            BindStaticDataService();   
-            
-            BindProgressService();
-            
-            BindRegistrationService();
-            
+            BindStaticDataService();
+
             BindSaveLoadService();
             
             BindAdsService();
         }
-        
-        private void BindStaticDataService()
+
+        private void BindProgressGenerator()
         {
             Container
-                .Bind<IStaticDataService>()
-                .To<StaticDataService>()
+                .Bind<IProgressGenerator>()
+                .To<ProgressGenerator>()
                 .AsSingle();
         }
-        
-        private void BindRandomService()
-        {
-            Container
-                .Bind<IRandomService>()
-                .To<RandomService>()
-                .AsSingle();
-        }
-        
+
         private void BindProgressService()
         {
             Container
@@ -53,7 +50,47 @@ namespace CodeBase.DI.MonoInstallers
                 .To<ProgressService>()
                 .AsSingle();
         }
-        
+
+        private void BindRegistrationService()
+        {
+            Container
+                .Bind<IRegistrationService>()
+                .To<RegistrationService>()
+                .AsSingle();
+        }
+
+        private void BindCustomLogger()
+        {
+            Container
+                .Bind<ILogger>()
+                .To<Logger>()
+                .AsSingle();
+        }
+
+        private void BindDisposer()
+        {
+            Container
+                .Bind<IDisposer>()
+                .To<Disposer>()
+                .AsSingle();
+        }
+
+        private void BindStaticDataService()
+        {
+            Container
+                .Bind<IStaticDataService>()
+                .To<StaticDataService>()
+                .AsSingle();
+        }
+
+        private void BindRandomService()
+        {
+            Container
+                .Bind<IRandomService>()
+                .To<RandomService>()
+                .AsSingle();
+        }
+
         private void BindSaveLoadService()
         {
             Container
@@ -69,15 +106,8 @@ namespace CodeBase.DI.MonoInstallers
                 .To<AdsService>()
                 .AsSingle();
         }
-        
-        private void BindRegistrationService()
-        {
-            Container
-                .Bind<IRegistrationService>()
-                .To<RegistrationService>()
-                .AsSingle();
-        }
-        
+
+
         private void BindInputService()
         {
             Container
@@ -85,6 +115,15 @@ namespace CodeBase.DI.MonoInstallers
                 .FromSubContainerResolve()
                 .ByInstaller<InputInstaller>()
                 .AsSingle();
+        }
+
+        private void BindProgress()
+        {
+            BindRegistrationService();
+
+            BindProgressGenerator();
+            
+            BindProgressService();
         }
     }
 }

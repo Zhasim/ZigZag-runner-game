@@ -1,5 +1,5 @@
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Services.Registration;
+using CodeBase.Infrastructure.Services.Progress.Registration;
 using UnityEngine;
 using Zenject;
 

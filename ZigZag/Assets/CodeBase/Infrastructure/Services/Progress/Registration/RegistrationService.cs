@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CodeBase.Infrastructure.Services.Progress.Watchers;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.Registration
+namespace CodeBase.Infrastructure.Services.Progress.Registration
 {
     public class RegistrationService : IRegistrationService
     {

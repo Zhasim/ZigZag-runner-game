@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
 using CodeBase.Infrastructure.Services.CustomLogger;
+using CodeBase.Infrastructure.Services.Disposal;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using Zenject;
 
@@ -19,11 +20,9 @@ namespace CodeBase.DI.MonoInstallers
             
             BindLoadingCurtain();
 
-            BindCustomLogger();
-
             BindGlobalStateMachine();
         }
-
+        
         private void BindCoroutineRunner()
         {
             Container
@@ -49,15 +48,7 @@ namespace CodeBase.DI.MonoInstallers
                 .FromComponentInNewPrefabResource(AssetPath.CURTAIN)
                 .AsSingle();
         }
-
-        private void BindCustomLogger()
-        {
-            Container
-                .Bind<ILogger>()
-                .To<Logger>()
-                .AsSingle();
-        }
-
+        
         private void BindGlobalStateMachine()
         {
             Container

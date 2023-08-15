@@ -22,12 +22,14 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         public LoadProgressState(IGlobalStateMachine stateMachine, 
             IProgressService progressService,
             ISaveLoadService saveLoadService, 
-            ILogger logger)
+            ILogger logger,
+            IProgressGenerator progressGenerator)
         {
             _stateMachine = stateMachine;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
             _logger = logger;
+            _progressGenerator = progressGenerator;
         }
 
         public void Enter()
