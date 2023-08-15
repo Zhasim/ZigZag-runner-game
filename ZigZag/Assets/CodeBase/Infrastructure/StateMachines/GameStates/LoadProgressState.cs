@@ -1,6 +1,7 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.CustomLogger;
-using CodeBase.Infrastructure.Services.Progress;
+using CodeBase.Infrastructure.Services.Progress.Generator;
+using CodeBase.Infrastructure.Services.Progress.Service;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.States;
@@ -14,6 +15,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
     {
         private readonly IGlobalStateMachine _stateMachine;
         private readonly IProgressService _progressService;
+        private readonly IProgressGenerator _progressGenerator;
         private readonly ISaveLoadService _saveLoadService;
         private readonly ILogger _logger;
 
@@ -36,17 +38,15 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
             _stateMachine.Enter<LoadSceneState, string>(ScenesID.GAME_LOOP);
         }
 
-        private void LoadProgressOrInitNew() => 
-            _progressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
-
-        private OverallProgress NewProgress()
+        private void LoadProgressOrInitNew()
         {
-            var progress = new OverallProgress();
-            return progress;
+            OverallProgress loadedProgress = _saveLoadService.LoadProgress();
+            _progressService.Progress = loadedProgress ?? _progressGenerator.GenerateNewProgress();
         }
-
+        
         public void Exit() => 
             _logger.LogInfo($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+        
         public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadProgressState>
         {
         }

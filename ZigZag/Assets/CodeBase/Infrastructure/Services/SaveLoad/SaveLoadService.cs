@@ -1,5 +1,6 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.Progress;
+using CodeBase.Infrastructure.Services.Progress.Service;
 using CodeBase.Infrastructure.Services.Progress.Watchers;
 using CodeBase.Infrastructure.Services.Registration;
 using UnityEngine;

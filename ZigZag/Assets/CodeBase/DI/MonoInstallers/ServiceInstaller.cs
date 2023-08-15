@@ -2,6 +2,7 @@ using CodeBase.DI.SubContainers;
 using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.Progress;
+using CodeBase.Infrastructure.Services.Progress.Service;
 using CodeBase.Infrastructure.Services.Randomizer;
 using CodeBase.Infrastructure.Services.Registration;
 using CodeBase.Infrastructure.Services.SaveLoad;
