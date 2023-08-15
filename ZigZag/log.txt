@@ -1,0 +1,3 @@
+2023-08-15 13:46:43 - Entered to State - LoadSceneState, Scene - Init
+2023-08-15 13:46:44 - Game World INIT
+2023-08-15 13:46:44 - Exited from State - LoadSceneState, Scene - GameLoop

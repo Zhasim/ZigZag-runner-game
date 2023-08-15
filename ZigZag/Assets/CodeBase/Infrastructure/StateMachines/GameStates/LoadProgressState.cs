@@ -1,10 +1,10 @@
 using CodeBase.Data;
+using CodeBase.Infrastructure.Services.CustomLogger;
 using CodeBase.Infrastructure.Services.Progress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.StaticData;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -15,19 +15,22 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly IGlobalStateMachine _stateMachine;
         private readonly IProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
+        private readonly ILogger _logger;
 
         public LoadProgressState(IGlobalStateMachine stateMachine, 
             IProgressService progressService,
-            ISaveLoadService saveLoadService)
+            ISaveLoadService saveLoadService, 
+            ILogger logger)
         {
             _stateMachine = stateMachine;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
+            _logger = logger;
         }
 
         public void Enter()
         {
-            Debug.Log($"State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}"); 
+            _logger.LogInfo($"State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}"); 
             
             LoadProgressOrInitNew();
             _stateMachine.Enter<LoadSceneState, string>(ScenesID.GAME_LOOP);
@@ -43,7 +46,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         }
 
         public void Exit() => 
-            Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+            _logger.LogInfo($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
         public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadProgressState>
         {
         }

@@ -7,6 +7,7 @@ using CodeBase.Logic.Camera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
+using ILogger = CodeBase.Infrastructure.Services.CustomLogger.ILogger;
 
 namespace CodeBase.Infrastructure.StateMachines.GameStates
 {
@@ -16,21 +17,24 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly ISceneLoader _sceneLoader;
         private readonly ILoadingCurtain _loadingCurtain;
         private readonly IGameFactory _factory;
-        
+        private readonly ILogger _logger;
+
         public LoadSceneState(IGlobalStateMachine stateMachine, 
             ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain,
-            IGameFactory factory)
+            IGameFactory factory, 
+            ILogger logger)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _factory = factory;
+            _logger = logger;
         }
 
         public void Enter(string sceneName)
         {
-            Debug.Log($"Entered to State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+            _logger.LogInfo($"Entered to State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
             _loadingCurtain.Show();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
@@ -47,7 +51,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
              // CameraFollow(hero);
 
             //InitInitialPlatform();
-            Debug.Log("Game World INIT");
+            _logger.LogInfo("Game World INIT");
         }
 
         // private void InitInitialPlatform()
@@ -60,7 +64,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         public void Exit()
         {
             _loadingCurtain.Hide();
-            Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+            _logger.LogInfo($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
         }
 
         // private static void CameraFollow(GameObject hero)

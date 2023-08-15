@@ -2,9 +2,9 @@ using CodeBase.Infrastructure.StateMachines.GameLoopMachine;
 using CodeBase.Infrastructure.StateMachines.GameLoopMachine.SubStates;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.States;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
+using ILogger = CodeBase.Infrastructure.Services.CustomLogger.ILogger;
 
 namespace CodeBase.Infrastructure.StateMachines.GameStates
 {
@@ -16,12 +16,16 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly IGameLoopSubState _startGameState;
         private readonly IGameLoopSubState _inGameState;
         private readonly IGameLoopSubState _endGameState;
-        
+        private readonly ILogger _logger;
 
-        public GameLoopState(IGlobalStateMachine globalStateMachine, IGameLoopStateMachine localStatMachine)
+
+        public GameLoopState(IGlobalStateMachine globalStateMachine, 
+            IGameLoopStateMachine localStatMachine,
+            ILogger logger)
         {
             _globalStateMachine = globalStateMachine;
             _localStatMachine = localStatMachine;
+            _logger = logger;
 
             _startGameState = new StartGameState();
             _inGameState = new InGameState();
@@ -30,7 +34,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
         public void Enter()
         {
-            Debug.Log($"State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+            _logger.LogInfo($"State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
             _localStatMachine.SetState(_startGameState);
         }
 

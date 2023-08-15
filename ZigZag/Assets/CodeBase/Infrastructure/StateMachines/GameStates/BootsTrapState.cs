@@ -5,6 +5,7 @@ using CodeBase.Infrastructure.StateMachines.States;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
+using ILogger = CodeBase.Infrastructure.Services.CustomLogger.ILogger;
 
 namespace CodeBase.Infrastructure.StateMachines.GameStates
 {
@@ -13,19 +14,22 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly IGlobalStateMachine _stateMachine;
         private readonly IAdsService _adsService;
         private readonly IStaticDataService _staticDataService;
-        
+        private readonly ILogger _logger;
+
         public BootstrapState(IGlobalStateMachine stateMachine,
             IAdsService adsService,
-            IStaticDataService staticDataService)
+            IStaticDataService staticDataService, 
+            ILogger logger)
         {
             _stateMachine = stateMachine;
             _adsService = adsService;
             _staticDataService = staticDataService;
+            _logger = logger;
         }
 
         public void Enter()
         {
-            Debug.Log($"Entered to State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+            _logger.LogInfo($"Entered to State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
             
             InitServices();
             _stateMachine.Enter<LoadProgressState>();
@@ -38,7 +42,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         }
         
         public void Exit() => 
-            Debug.Log($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
+            _logger.LogInfo($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
         public class Factory : PlaceholderFactory<IGlobalStateMachine, BootstrapState>
         {
         }
