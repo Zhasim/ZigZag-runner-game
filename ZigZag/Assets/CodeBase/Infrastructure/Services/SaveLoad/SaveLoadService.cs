@@ -1,34 +1,73 @@
+using System;
 using CodeBase.Data;
-using CodeBase.Infrastructure.Services.Progress;
 using CodeBase.Infrastructure.Services.Progress.Registration;
 using CodeBase.Infrastructure.Services.Progress.Service;
 using CodeBase.Infrastructure.Services.Progress.Watchers;
 using UnityEngine;
+using ILogger = CodeBase.Infrastructure.Services.CustomLogger.ILogger;
 
 namespace CodeBase.Infrastructure.Services.SaveLoad
 {
     public class SaveLoadService : ISaveLoadService
     {
-        private const string PROGRESS = "Progress";
+        private const string OVERALL_PROGRESS = "OverallProgress";
         
         private readonly IProgressService _progressService;
         private readonly IRegistrationService _registrationService;
+        private readonly ILogger _logger;
 
-        public SaveLoadService(IProgressService progressService, IRegistrationService registrationService)
+        public SaveLoadService(IProgressService progressService, 
+            IRegistrationService registrationService,
+            ILogger logger)
         {
             _progressService = progressService;
             _registrationService = registrationService;
+            _logger = logger;
         }
 
         public void SaveProgress()
         {
-            foreach (IProgressWriter progressWriter in _registrationService.ProgressWriters)
-                progressWriter.WriteProgress(_progressService.Progress);
+            try
+            {
+                foreach (IProgressWriter progressWriter in _registrationService.ProgressWriters)
+                    progressWriter.WriteProgress(_progressService.Progress);
             
-            PlayerPrefs.SetString(PROGRESS, _progressService.Progress.ToJson());
+                PlayerPrefs.SetString(OVERALL_PROGRESS, _progressService.Progress.ToJson());
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error saving progress: {exception.Message}");
+            }
         }
 
-        public OverallProgress LoadProgress() => 
-            PlayerPrefs.GetString(PROGRESS)?.ToDeserialized<OverallProgress>();
+        public OverallProgress LoadProgress()
+        {
+            try
+            {
+                var serializedProgress = PlayerPrefs.GetString(OVERALL_PROGRESS);
+                if (string.IsNullOrEmpty(serializedProgress))
+                    return null;
+                
+                return DeserializeProgress(serializedProgress);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"Error loading progress: {exception.Message}");
+                return null;
+            }
+        }
+
+        private OverallProgress DeserializeProgress(string serializedProgress)
+        {
+            try
+            {
+                return JsonUtility.FromJson<OverallProgress>(serializedProgress);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error deserializing progress: {ex.Message}");
+                return null;
+            }
+        }
     }
 }
