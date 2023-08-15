@@ -1,35 +1,18 @@
 using CodeBase.Infrastructure.StateMachines.GameLoopMachine;
 using CodeBase.Infrastructure.StateMachines.GameStates;
 using CodeBase.Infrastructure.StateMachines.Machines;
-using CodeBase.Infrastructure.StateMachines.Provider;
 using Zenject;
 
 namespace CodeBase.DI.MonoInstallers
 {
-    public class GlobalStateMachineInstaller : MonoInstaller
+    public class GlobalStateMachineInstaller : Installer<GlobalStateMachineInstaller>
     {
         public override void InstallBindings()
         {
             BindGameLoopStateMachine();
-            BindGlobalStateMachineProvider();
-            BindGlobalStateMachine();
-        }
-        
-        private void BindGlobalStateMachineProvider()
-        {
-            Container
-                .Bind<IGlobalStateMachineProvider>()
-                .To<GlobalStateMachineProvider>()
-                .AsSingle();
-        }
-        
 
-        private void BindGlobalStateMachine()
-        {
-            Container
-                .Bind<IGlobalStateMachine>()
-                .FromMethod(GetStateMachine)
-                .AsSingle();
+            BindGlobalStates();
+            BindGlobalStateMachine();
         }
 
         private void BindGameLoopStateMachine()
@@ -39,11 +22,21 @@ namespace CodeBase.DI.MonoInstallers
                 .To<GameLoopStateMachine>()
                 .AsSingle();
         }
-        
-        private GlobalStateMachine GetStateMachine(InjectContext context)
+
+        private void BindGlobalStates()
         {
-            var provider = context.Container.Resolve<GlobalStateMachineProvider>();
-            return provider.GetStateMachine();
+            Container.BindFactory<IGlobalStateMachine, BootstrapState, BootstrapState.Factory>();
+            Container.BindFactory<IGlobalStateMachine, LoadProgressState, LoadProgressState.Factory>();
+            Container.BindFactory<IGlobalStateMachine, LoadSceneState, LoadSceneState.Factory>();
+            Container.BindFactory<IGlobalStateMachine, GameLoopState, GameLoopState.Factory>();
+        }
+
+        private void BindGlobalStateMachine()
+        {
+            Container
+                .Bind<IGlobalStateMachine>()
+                .To<GlobalStateMachine>()
+                .AsSingle();
         }
     }
 }

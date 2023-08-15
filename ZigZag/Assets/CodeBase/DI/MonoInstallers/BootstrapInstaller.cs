@@ -1,9 +1,8 @@
-using CodeBase.DI.SubContainers;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
-using CodeBase.Infrastructure.Services.Input;
+using CodeBase.Infrastructure.StateMachines.Machines;
 using Zenject;
 
 namespace CodeBase.DI.MonoInstallers
@@ -17,8 +16,10 @@ namespace CodeBase.DI.MonoInstallers
             BindSceneLoader();
             
             BindLoadingCurtain();
+
+            BindGlobalStateMachine();
         }
-        
+
         private void BindCoroutineRunner()
         {
             Container
@@ -42,6 +43,15 @@ namespace CodeBase.DI.MonoInstallers
                 .Bind<ILoadingCurtain>()
                 .To<LoadingCurtain>()
                 .FromComponentInNewPrefabResource(AssetPath.CURTAIN)
+                .AsSingle();
+        }
+
+        private void BindGlobalStateMachine()
+        {
+            Container
+                .Bind<IGlobalStateMachine>()
+                .FromSubContainerResolve()
+                .ByInstaller<GlobalStateMachineInstaller>()
                 .AsSingle();
         }
     }

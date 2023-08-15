@@ -6,6 +6,7 @@ using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.Logic.Camera;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace CodeBase.Infrastructure.StateMachines.GameStates
 {
@@ -66,5 +67,9 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         // {
         //     if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(hero);
         // }
+        
+        public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadSceneState>
+        {
+        }
     }
 }
