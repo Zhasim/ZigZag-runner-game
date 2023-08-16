@@ -4,7 +4,7 @@ using CodeBase.StaticData;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.DI.MonoInstallers
+namespace CodeBase.CompositionRoot.MonoInstallers.GameLoop
 {
     public class GameLoopInstaller : MonoInstaller
     {

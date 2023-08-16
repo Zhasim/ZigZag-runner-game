@@ -3,6 +3,7 @@ using CodeBase.Infrastructure.Foundation.Loader;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.States;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 using ILogger = CodeBase.Infrastructure.Services.CustomLogger.ILogger;
@@ -39,13 +40,14 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
         private void OnLoaded()
         {
-            //InitGameWorld();
+            InitGameWorld();
             _stateMachine.Enter<GameLoopState>();
         }
 
         private void InitGameWorld()
         {
-             _factory.CreatePlayer();
+            Transform playerContainer = new GameObject("PLAYER_CONTAINER").transform;
+            _factory.CreatePlayerWithParent(playerContainer);
              //CameraInit(playerDeath, player);
                  
             _logger.LogInfo("Game World INIT");

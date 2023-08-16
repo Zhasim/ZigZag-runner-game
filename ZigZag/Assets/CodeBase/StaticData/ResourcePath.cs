@@ -11,5 +11,6 @@ namespace CodeBase.StaticData
         public const string DIAMOND = "Prefabs/Gameplay/Diamond";
         public const string INIT_PLATFORM = "Prefabs/Gameplay/InitPlatform";
         public const string PLAYER = "Prefabs/Gameplay/Player";
+        public const string TEST_PLAYER = "Prefabs/Gameplay/TestPlayer";
    }
 }
