@@ -28,19 +28,19 @@ namespace CodeBase.Infrastructure.Services.Factory
 
             return instance;
         }
-        public GameObject CreatePlayerWithParent(Transform container)
-        {
-            GameObject prefab = _resourceLoader.Load(ResourcePath.TEST_PLAYER);
-            GameObject instance = _instantiator.InstantiatePrefab(prefab, container);
-            _registrationService.RegisterWatchers(instance);
 
+        public GameObject CreateInitPoint(Transform container)
+        {
+            GameObject prefab = _resourceLoader.Load(ResourcePath.INIT_POINT);
+            GameObject instance = _instantiator.InstantiatePrefab(prefab, container);
+            
             return instance;
         }
 
-        public GameObject CreateInitPlatform(Vector3 at)
+        public GameObject CreateInitPlatform(Transform parent)
         {
             GameObject prefab = _resourceLoader.Load(ResourcePath.INIT_PLATFORM);
-            GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
+            GameObject instance = _instantiator.InstantiatePrefab(prefab, parent);
 
             return instance;
         }

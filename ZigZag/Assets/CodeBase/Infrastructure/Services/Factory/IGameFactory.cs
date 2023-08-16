@@ -5,8 +5,8 @@ namespace CodeBase.Infrastructure.Services.Factory
     public interface IGameFactory
     {
         GameObject CreatePlayer(Vector3 at, Transform container);
-        GameObject CreatePlayerWithParent(Transform container);
-        GameObject CreateInitPlatform(Vector3 at);
+        GameObject CreateInitPoint(Transform container);
+        GameObject CreateInitPlatform(Transform parent);
         GameObject CreateDiamond(Vector3 at);
         GameObject CreateBlock(Vector3 at);
     }
