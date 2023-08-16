@@ -1,4 +1,4 @@
-using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.ResourceLoad;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.Services.Pools.BlockPool;
 using CodeBase.Infrastructure.Services.Pools.DiamondPool;

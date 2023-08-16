@@ -1,5 +1,6 @@
-using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.ResourceLoad;
 using CodeBase.Infrastructure.Services.Progress.Registration;
+using CodeBase.StaticData;
 using UnityEngine;
 using Zenject;
 
@@ -22,14 +23,14 @@ namespace CodeBase.Infrastructure.Services.Factory
 
         public GameObject CreatePlayer(Vector3 at)
         {
-            GameObject prefab = _resourceLoader.Load(AssetPath.PLAYER);
+            GameObject prefab = _resourceLoader.Load(ResourcePath.PLAYER);
             GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
 
             return instance;
         }
         public GameObject CreatePlayer()
         {
-            GameObject prefab = _resourceLoader.Load(AssetPath.PLAYER);
+            GameObject prefab = _resourceLoader.Load(ResourcePath.PLAYER);
             GameObject instance = _instantiator.InstantiatePrefab(prefab);
             _registrationService.RegisterWatchers(instance);
 
@@ -38,21 +39,21 @@ namespace CodeBase.Infrastructure.Services.Factory
 
         public GameObject CreateInitPlatform(Vector3 at)
         {
-            GameObject prefab = _resourceLoader.Load(AssetPath.INIT_PLATFORM);
+            GameObject prefab = _resourceLoader.Load(ResourcePath.INIT_PLATFORM);
             GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
 
             return instance;
         }
         public GameObject CreateDiamond(Vector3 at)
         {
-            GameObject prefab = _resourceLoader.Load(AssetPath.DIAMOND);
+            GameObject prefab = _resourceLoader.Load(ResourcePath.DIAMOND);
             GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
 
             return instance;
         }
         public GameObject CreateBlock(Vector3 at)
         {
-            GameObject prefab = _resourceLoader.Load(AssetPath.BLOCK);
+            GameObject prefab = _resourceLoader.Load(ResourcePath.BLOCK);
             GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
 
             return instance;

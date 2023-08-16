@@ -1,11 +1,9 @@
 using CodeBase.DI.SubContainers;
-using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
-using CodeBase.Infrastructure.Services.CustomLogger;
-using CodeBase.Infrastructure.Services.Disposal;
 using CodeBase.Infrastructure.StateMachines.Machines;
+using CodeBase.StaticData;
 using Zenject;
 
 namespace CodeBase.DI.MonoInstallers
@@ -28,7 +26,7 @@ namespace CodeBase.DI.MonoInstallers
             Container
                 .Bind<ICoroutineRunner>()
                 .To<CoroutineRunner>()
-                .FromComponentInNewPrefabResource(AssetPath.COROUTINE_RUNNER)
+                .FromComponentInNewPrefabResource(ResourcePath.COROUTINE_RUNNER)
                 .AsSingle();
         }
 
@@ -45,7 +43,7 @@ namespace CodeBase.DI.MonoInstallers
             Container
                 .Bind<ILoadingCurtain>()
                 .To<LoadingCurtain>()
-                .FromComponentInNewPrefabResource(AssetPath.CURTAIN)
+                .FromComponentInNewPrefabResource(ResourcePath.CURTAIN)
                 .AsSingle();
         }
         

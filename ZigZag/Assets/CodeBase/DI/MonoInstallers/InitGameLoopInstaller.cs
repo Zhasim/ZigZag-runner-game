@@ -1,48 +1,41 @@
 using CodeBase.Entity.Player;
-using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Logic.Camera;
+using CodeBase.StaticData;
 using UnityEngine;
 using Zenject;
 
 namespace CodeBase.DI.MonoInstallers
 {
-    public class InitGameLoopInstaller : MonoInstaller
+    public class GameLoopInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            InstantiateSaver();
             InstantiateInitPlatform();
-            //InstantiatePlayer();
+            InstantiatePlayer();
         }
         
-        private void InstantiateSaver()
-        {
-            Container
-                .InstantiatePrefabResource(AssetPath.SAVER);
-        }
-
         private void InstantiateInitPlatform()
         {
             Container
-                .InstantiatePrefabResource(AssetPath.INIT_PLATFORM);
+                .InstantiatePrefabResource(ResourcePath.INIT_PLATFORM);
             Container
-                .InstantiatePrefabResource(AssetPath.BLOCK);
+                .InstantiatePrefabResource(ResourcePath.BLOCK);
             Container
-                .InstantiatePrefabResource(AssetPath.DIAMOND);
+                .InstantiatePrefabResource(ResourcePath.DIAMOND);
         }
 
-        // private void InstantiatePlayer()
-        // {
-        //     GameObject player = Container
-        //         .InstantiatePrefabResource(AssetPath.PLAYER);
-        //     PlayerDeath playerDeath = player.GetComponent<PlayerDeath>();
-        //     
-        //     CameraInit(playerDeath, target: player);
-        // }
+        private void InstantiatePlayer()
+        {
+            GameObject player = Container
+                .InstantiatePrefabResource(ResourcePath.PLAYER);
+            PlayerDeath playerDeath = player.GetComponent<PlayerDeath>();
+            
+            CameraFollow(target: player);
+        }
         
-        // private void CameraInit(PlayerDeath player, GameObject target)
-        // {
-        //     if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().InitFollow(player, target);
-        // }
+        private void CameraFollow(GameObject target)
+        {
+            if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(target);
+        }
     }
 }

@@ -15,16 +15,8 @@ namespace CodeBase.Logic.Camera
         public float distanceZ = 20f;
         
         public float offsetY = -6;
-
-        [SerializeField] private PlayerDeath _player;
-        [SerializeField] private Transform _target;
-        [SerializeField] private bool _isPlayerDied;
         
-        private void Start() => 
-            _player.Died += OnPlayerDied;
-
-        private void OnDestroy() =>
-            _player.Died -= OnPlayerDied;
+        [SerializeField] private Transform _target;
 
         private void LateUpdate()
         {
@@ -32,22 +24,23 @@ namespace CodeBase.Logic.Camera
                 ChasingTarget();
         }
 
-        public void InitFollow(PlayerDeath player, GameObject target)
-        {
-            _player = player;
+        public void Follow(GameObject target) => 
             _target = target.transform;
+
+        public void StopFollowing()
+        {
+            _target = null;
+            
+            Debug.Log("Player has died, camera tracking stopped.");
         }
 
         private void ChasingTarget()
         {
-            if (!_isPlayerDied)
-            {
-                Quaternion rotation = Quaternion.Euler(rotationAngleX, rotationAngleY, rotationAngleZ);
+            Quaternion rotation = Quaternion.Euler(rotationAngleX, rotationAngleY, rotationAngleZ);
                 Vector3 position = rotation * new Vector3(distanceX, distanceY, -distanceZ) + FollowingPointPosition();
             
                 transform.rotation = rotation;
                 transform.position = position;
-            }
         }
 
         private Vector3 FollowingPointPosition()
@@ -56,14 +49,6 @@ namespace CodeBase.Logic.Camera
             followingPosition.y += offsetY;
             
             return followingPosition;
-        }
-
-        private void OnPlayerDied()
-        {
-            _isPlayerDied = true;
-            _target = null;
-            
-            Debug.Log("Player has died, camera tracking stopped.");
         }
     }
 }
