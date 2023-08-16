@@ -1,4 +1,4 @@
-using CodeBase.DI.SubContainers;
+using CodeBase.CompositionRoot.SubContainers;
 using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
@@ -6,9 +6,9 @@ using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.StaticData;
 using Zenject;
 
-namespace CodeBase.DI.MonoInstallers
+namespace CodeBase.CompositionRoot.MonoInstallers
 {
-    public class BootstrapInstaller : MonoInstaller
+    public class FoundationInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {

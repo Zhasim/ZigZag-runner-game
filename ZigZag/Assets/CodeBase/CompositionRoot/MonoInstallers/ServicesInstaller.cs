@@ -1,9 +1,8 @@
-using CodeBase.DI.SubContainers;
+using CodeBase.CompositionRoot.SubContainers;
 using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.CustomLogger;
 using CodeBase.Infrastructure.Services.Disposal;
 using CodeBase.Infrastructure.Services.Input;
-using CodeBase.Infrastructure.Services.Progress;
 using CodeBase.Infrastructure.Services.Progress.Generator;
 using CodeBase.Infrastructure.Services.Progress.Registration;
 using CodeBase.Infrastructure.Services.Progress.Service;
@@ -12,9 +11,9 @@ using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using Zenject;
 
-namespace CodeBase.DI.MonoInstallers
+namespace CodeBase.CompositionRoot.MonoInstallers
 {
-    public class ServiceInstaller : MonoInstaller
+    public class ServicesInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {

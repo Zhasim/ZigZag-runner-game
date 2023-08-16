@@ -3,6 +3,8 @@ using CodeBase.Infrastructure.Foundation.Loader;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.States;
+using CodeBase.Logic.Camera;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 using ILogger = CodeBase.Infrastructure.Services.CustomLogger.ILogger;
@@ -39,14 +41,19 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
         private void OnLoaded()
         {
-            //InitGameWorld();
+            InitGameWorld();
             _stateMachine.Enter<GameLoopState>();
         }
 
         private void InitGameWorld()
         {
-             _factory.CreatePlayer();
-             //CameraInit(playerDeath, player);
+            Transform initContainer = new GameObject("INIT_CONTAINER").transform;
+           _factory.CreateInitPlatform(initContainer);
+            Vector3 initPoint = _factory.CreateInitPoint(initContainer).transform.position;
+
+            Transform playerContainer = new GameObject("PLAYER_CONTAINER").transform;
+            GameObject player = _factory.CreatePlayer(initPoint, playerContainer);
+            CameraFollow(player);
                  
             _logger.LogInfo("Game World INIT");
         }
@@ -57,10 +64,10 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
             _logger.LogInfo($"Exited from State - {GetType().Name}, Scene - {SceneManager.GetActiveScene().name}");
         }
 
-        // private void CameraInit(PlayerDeath player, GameObject target)
-        // {
-        //     if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().InitFollow(player, target);
-        // }
+        private void CameraFollow(GameObject target)
+        {
+            if (Camera.main != null) Camera.main.GetComponent<CameraFollow>().Follow(target);
+        }
         
         public class Factory : PlaceholderFactory<IGlobalStateMachine, LoadSceneState>
         {

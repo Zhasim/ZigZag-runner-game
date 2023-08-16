@@ -21,26 +21,26 @@ namespace CodeBase.Infrastructure.Services.Factory
             _registrationService = registrationService;
         }
 
-        public GameObject CreatePlayer(Vector3 at)
+        public GameObject CreatePlayer(Vector3 at, Transform container)
         {
             GameObject prefab = _resourceLoader.Load(ResourcePath.PLAYER);
-            GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
-
-            return instance;
-        }
-        public GameObject CreatePlayer()
-        {
-            GameObject prefab = _resourceLoader.Load(ResourcePath.PLAYER);
-            GameObject instance = _instantiator.InstantiatePrefab(prefab);
-            _registrationService.RegisterWatchers(instance);
+            GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, container);
 
             return instance;
         }
 
-        public GameObject CreateInitPlatform(Vector3 at)
+        public GameObject CreateInitPoint(Transform container)
+        {
+            GameObject prefab = _resourceLoader.Load(ResourcePath.INIT_POINT);
+            GameObject instance = _instantiator.InstantiatePrefab(prefab, container);
+            
+            return instance;
+        }
+
+        public GameObject CreateInitPlatform(Transform parent)
         {
             GameObject prefab = _resourceLoader.Load(ResourcePath.INIT_PLATFORM);
-            GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
+            GameObject instance = _instantiator.InstantiatePrefab(prefab, parent);
 
             return instance;
         }
