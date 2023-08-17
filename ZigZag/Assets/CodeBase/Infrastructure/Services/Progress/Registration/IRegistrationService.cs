@@ -9,7 +9,8 @@ namespace CodeBase.Infrastructure.Services.Progress.Registration
         List<IProgressReader> ProgressReaders { get; }
         List<IProgressWriter> ProgressWriters { get; }
 
-        void CleanUp();
         void RegisterWatchers(GameObject gameObject);
+        void UnregisterWatchers(GameObject gameObject);
+        void CleanUp();
     }
 }
