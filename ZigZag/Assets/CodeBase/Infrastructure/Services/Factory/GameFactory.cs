@@ -44,19 +44,5 @@ namespace CodeBase.Infrastructure.Services.Factory
 
             return instance;
         }
-        public GameObject CreateDiamond(Vector3 at)
-        {
-            GameObject prefab = _resourceLoader.Load(ResourcePath.DIAMOND);
-            GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
-
-            return instance;
-        }
-        public GameObject CreateBlock(Vector3 at)
-        {
-            GameObject prefab = _resourceLoader.Load(ResourcePath.BLOCK);
-            GameObject instance = _instantiator.InstantiatePrefab(prefab, at, Quaternion.identity, null);
-
-            return instance;
-        }
     }
 }

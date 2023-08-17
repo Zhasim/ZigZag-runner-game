@@ -59,10 +59,5 @@ namespace CodeBase.Entity.Diamonds
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = true;
         }
-
-        public class Pool : MonoMemoryPool<Diamond>
-        {
-            
-        }
     }
 }
