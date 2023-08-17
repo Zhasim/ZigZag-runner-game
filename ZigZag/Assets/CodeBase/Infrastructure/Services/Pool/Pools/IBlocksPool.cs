@@ -1,4 +1,4 @@
-using CodeBase.Entity;
+using CodeBase.Entity.Blocks;
 
 namespace CodeBase.Infrastructure.Services.Pool.Pools
 {

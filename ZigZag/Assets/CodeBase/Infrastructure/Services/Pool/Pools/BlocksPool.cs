@@ -1,4 +1,5 @@
 using CodeBase.Entity;
+using CodeBase.Entity.Blocks;
 using CodeBase.Infrastructure.Services.Pool.Builder;
 using CodeBase.StaticData;
 using UnityEngine;
@@ -30,17 +31,12 @@ namespace CodeBase.Infrastructure.Services.Pool.Pools
             _poolBuilder.Initialize();
             
             Debug.Log("BlocksPool initialized");
-
         }
         
-        public Block RentBlock()
-        {
-            return _poolBuilder.Rent();
-        }
+        public Block RentBlock() => 
+            _poolBuilder.Rent();
 
-        public void ReturnBlock(Block block)
-        {
+        public void ReturnBlock(Block block) => 
             _poolBuilder.Return(block);
-        }
     }
 }

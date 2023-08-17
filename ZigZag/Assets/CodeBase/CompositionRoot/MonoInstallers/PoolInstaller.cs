@@ -1,4 +1,5 @@
 using CodeBase.Entity;
+using CodeBase.Entity.Blocks;
 using CodeBase.Entity.Diamonds;
 using CodeBase.Infrastructure.Services.Pool.Builder;
 using CodeBase.Infrastructure.Services.Pool.Factory;

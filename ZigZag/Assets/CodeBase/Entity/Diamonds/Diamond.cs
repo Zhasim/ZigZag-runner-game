@@ -1,22 +1,30 @@
 using System.Collections;
+using CodeBase.Infrastructure.Services.Pool.Pools;
 using UnityEngine;
 using Zenject;
 
 namespace CodeBase.Entity.Diamonds
 {
-    public class Diamond : MonoBehaviour
+    public class Diamond : PoolableObject
     {
-        private const float DelayBeforeFalling = 0.3f;
+        private const string PlayerTag = "Player";
         
         [SerializeField] private DropZone _dropZone;
         [SerializeField] private FallZone _fallZone;
         
-        private Rigidbody _rigidbody;
+        private IDiamondsPool _pool;
         private bool _dropped;
+        
+        protected override float DelayBeforeReturning => 1.0f;
+        protected override float DelayBeforeFalling => 0.3f;
+        
+        [Inject]
+        public void Construct(IDiamondsPool pool) => 
+            _pool = pool;
 
-        private void Start()
+        protected override void Start()
         {
-            _rigidbody = GetComponent<Rigidbody>();
+            base.Start();
             _dropZone.TriggerEnter += OnTriggerEntered;
             _fallZone.TriggerExit += OnTriggerExited;
         }
@@ -32,10 +40,10 @@ namespace CodeBase.Entity.Diamonds
             if(_dropped)
                 return;
             
-            if (obj.CompareTag("Player"))
+            if (obj.CompareTag(PlayerTag))
             {
                 _dropped = true;
-                Destroy(gameObject);
+                ReturnToPool();
             }
         }
 
@@ -47,17 +55,8 @@ namespace CodeBase.Entity.Diamonds
             if (!_dropped) 
                 StartCoroutine(WaitAndFallDown());
         }
-
-        private IEnumerator WaitAndFallDown()
-        {
-            yield return new WaitForSeconds(DelayBeforeFalling);
-            FallDown();
-        }
-
-        private void FallDown()
-        {
-            _rigidbody.isKinematic = false;
-            _rigidbody.useGravity = true;
-        }
+        
+        protected override void ReturnToPool() => 
+            _pool.ReturnDiamond(this);
     }
 }

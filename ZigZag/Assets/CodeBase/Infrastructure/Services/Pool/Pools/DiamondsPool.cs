@@ -7,8 +7,8 @@ namespace CodeBase.Infrastructure.Services.Pool.Pools
 {
     public class DiamondsPool : IDiamondsPool
     {
-        private const int InitialSize = 10;
-        private const int MaxSize = 40;
+        private const int InitialSize = 20;
+        private const int MaxSize = 60;
         private const bool IsExpand = true;
         private const string DiamondsContainer = "DIAMONDS_CONTAINER";
         
