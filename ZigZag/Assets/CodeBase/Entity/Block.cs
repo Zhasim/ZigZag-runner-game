@@ -9,6 +9,7 @@ namespace CodeBase.Entity
         private const float DelayBeforeReturning = 2.0f;
         private const float DelayBeforeFalling = 0.1f;
         private Rigidbody _rigidbody;
+        
 
         private void Start() =>   
             _rigidbody = GetComponent<Rigidbody>();
@@ -18,7 +19,7 @@ namespace CodeBase.Entity
             if (collision.collider.CompareTag("Player"))
                 StartCoroutine(WaitAndFallDown());
         }
-
+        
         private IEnumerator WaitAndFallDown()
         {
             yield return new WaitForSeconds(DelayBeforeFalling);
@@ -37,11 +38,6 @@ namespace CodeBase.Entity
             yield return new WaitForSeconds(DelayBeforeReturning);
             _rigidbody.isKinematic = true;
             _rigidbody.useGravity = false;
-        }
-
-        public class Pool : MonoMemoryPool<Block>
-        {
-            
         }
     }
 }

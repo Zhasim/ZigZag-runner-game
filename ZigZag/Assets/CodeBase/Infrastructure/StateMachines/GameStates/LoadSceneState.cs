@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.Logic.Camera;
+using CodeBase.Logic.TileGeneration;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -16,20 +17,24 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly IGlobalStateMachine _stateMachine;
         private readonly ISceneLoader _sceneLoader;
         private readonly ILoadingCurtain _loadingCurtain;
-        private readonly IGameFactory _factory;
         private readonly ILogger _logger;
+
+        private readonly IGameFactory _factory;
+        private readonly ITileGenerator _tileGenerator;
 
         public LoadSceneState(IGlobalStateMachine stateMachine, 
             ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain,
-            IGameFactory factory, 
-            ILogger logger)
+            ILogger logger,
+            IGameFactory factory,
+            ITileGenerator tileGenerator)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
-            _factory = factory;
             _logger = logger;
+            _factory = factory;
+            _tileGenerator = tileGenerator;
         }
 
         public void Enter(string sceneName)
@@ -55,6 +60,8 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
             GameObject player = _factory.CreatePlayer(initPoint, playerContainer);
             CameraFollow(player);
                  
+            _tileGenerator.Init();
+            
             _logger.LogInfo("Game World INIT");
         }
         
