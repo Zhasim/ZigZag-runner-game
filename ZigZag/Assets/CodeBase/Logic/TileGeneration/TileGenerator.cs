@@ -74,7 +74,7 @@ namespace CodeBase.Logic.TileGeneration
         private void SpawnTile()  
         {  
             Vector3 currentPosition = CalculateNextBlockPosition(); 
-            Block currentBlock = _blocksPool.RentBlock();  
+            Block currentBlock = _blocksPool.RentBlock();
 
             currentBlock.transform.position = currentPosition;  
             _lastBlockPosition = currentPosition;  

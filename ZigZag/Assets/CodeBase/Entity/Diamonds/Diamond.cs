@@ -1,4 +1,5 @@
 using System.Collections;
+using CodeBase.Infrastructure.Services.Pool.Pools;
 using UnityEngine;
 using Zenject;
 
@@ -7,12 +8,18 @@ namespace CodeBase.Entity.Diamonds
     public class Diamond : MonoBehaviour
     {
         private const float DelayBeforeFalling = 0.3f;
-        
+        private const float DelayBeforeReturning = 1f;
+
         [SerializeField] private DropZone _dropZone;
         [SerializeField] private FallZone _fallZone;
-        
+
         private Rigidbody _rigidbody;
         private bool _dropped;
+        private IDiamondsPool _pool;
+        
+        [Inject]
+        public void Construct(IDiamondsPool pool) => 
+            _pool = pool;
 
         private void Start()
         {
@@ -35,7 +42,7 @@ namespace CodeBase.Entity.Diamonds
             if (obj.CompareTag("Player"))
             {
                 _dropped = true;
-                Destroy(gameObject);
+                ReturnToPool();
             }
         }
 
@@ -58,6 +65,18 @@ namespace CodeBase.Entity.Diamonds
         {
             _rigidbody.isKinematic = false;
             _rigidbody.useGravity = true;
+            StartCoroutine(BackInPool());
         }
+
+        private IEnumerator BackInPool()
+        {
+            yield return new WaitForSeconds(DelayBeforeReturning);
+            _rigidbody.isKinematic = true;
+            _rigidbody.useGravity = false;
+            ReturnToPool();
+        }
+
+        private void ReturnToPool() => 
+            _pool.ReturnDiamond(this);
     }
 }
