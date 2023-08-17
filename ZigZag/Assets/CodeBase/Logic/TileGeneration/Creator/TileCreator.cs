@@ -1,16 +1,13 @@
-using System.Collections;
-using CodeBase.Entity;
 using CodeBase.Entity.Blocks;
 using CodeBase.Entity.Diamonds;
-using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using CodeBase.Infrastructure.Services.Pool.Pools;
 using CodeBase.Infrastructure.Services.Randomizer;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Logic.TileGeneration
+namespace CodeBase.Logic.TileGeneration.Creator
 {
-    public class TileGenerator : ITileGenerator, IInitializable
+    public class TileCreator : ITileCreator, IInitializable
     {
         private const float BLOCK_STEP = 4f; 
         
@@ -19,21 +16,17 @@ namespace CodeBase.Logic.TileGeneration
 
         private readonly IBlocksPool _blocksPool;  
         private readonly IDiamondsPool _diamondsPool;
-        
         private readonly IRandomService _randomService;
-        private readonly ICoroutineRunner _coroutineRunner;
-        
+
         public bool IsSpawning { get; set; }
 
-        public TileGenerator(IBlocksPool blocksPool, 
+        public TileCreator(IBlocksPool blocksPool, 
             IDiamondsPool diamondsPool,
-            IRandomService randomService,
-            ICoroutineRunner coroutineRunner)
+            IRandomService randomService)
         {
             _blocksPool = blocksPool;
             _diamondsPool = diamondsPool;
             _randomService = randomService;
-            _coroutineRunner = coroutineRunner;
         }
 
         public void Initialize()
@@ -42,37 +35,13 @@ namespace CodeBase.Logic.TileGeneration
             _highDiamondPosition = Vector3.up * 6f;
         }
 
-        public void Init() => 
-            InitPools();
-
-        public IEnumerator StartSpawnRepeater()
+        public void Init()
         {
-            yield return _coroutineRunner.StartCoroutine(SpawnRepeater());
+            InitPools();
+            InitSpawn();
         }
 
-        private IEnumerator SpawnRepeater()  
-        {  
-            while (IsSpawning)  
-            {  
-                yield return new WaitForSeconds(0.2f);  
-                if (IsSpawning == false)  
-                    yield break;  
-                SpawnTile();  
-            }  
-        }
-        
-        private void InitPools()  
-        {  
-            _blocksPool.Init();
-            _diamondsPool.Init();
-            
-            for (int i = 0; i < 20; i++)   
-                SpawnTile();  
-            
-            Debug.Log("Tile generator Initialized pools");
-        }
-        
-        private void SpawnTile()  
+        public void CreateTile()  
         {  
             Vector3 currentPosition = CalculateNextBlockPosition(); 
             Block currentBlock = _blocksPool.RentBlock();
@@ -80,9 +49,21 @@ namespace CodeBase.Logic.TileGeneration
             currentBlock.transform.position = currentPosition;  
             _lastBlockPosition = currentPosition;  
             
-            SpawnDiamond();  
-        } 
-        
+            CreateDiamond();  
+        }
+
+        private void InitPools()  
+        {  
+            _blocksPool.Init();
+            _diamondsPool.Init();
+        }
+
+        private void InitSpawn()
+        {
+            for (int i = 0; i < 20; i++)
+                CreateTile();
+        }
+
         private Vector3 CalculateNextBlockPosition()
         {
             int randomValue = _randomService.Next(0, 2);  
@@ -96,7 +77,7 @@ namespace CodeBase.Logic.TileGeneration
             return currentPosition;
         }
         
-        private void SpawnDiamond()  
+        private void CreateDiamond()  
         {  
             int chanceToDiamond = _randomService.Next(0, 4); 
             if (chanceToDiamond == 0)  

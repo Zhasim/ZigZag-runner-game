@@ -5,6 +5,7 @@ using CodeBase.Infrastructure.Services.Pool.Builder;
 using CodeBase.Infrastructure.Services.Pool.Factory;
 using CodeBase.Infrastructure.Services.Pool.Pools;
 using CodeBase.Logic.TileGeneration;
+using CodeBase.Logic.TileGeneration.Creator;
 using Zenject;
 
 namespace CodeBase.CompositionRoot.MonoInstallers
@@ -46,7 +47,7 @@ namespace CodeBase.CompositionRoot.MonoInstallers
         private void BindTileGenerator()
         {
             Container
-                .BindInterfacesAndSelfTo<TileGenerator>()
+                .BindInterfacesAndSelfTo<TileCreator>()
                 .AsSingle();
         }
     }
