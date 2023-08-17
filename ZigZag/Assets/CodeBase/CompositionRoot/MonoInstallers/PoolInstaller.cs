@@ -15,9 +15,9 @@ namespace CodeBase.CompositionRoot.MonoInstallers
         public override void InstallBindings()
         {
             BindLocalFactories();
-            BindPoolBuilders();
+            BindGenericPools();
             BindPools();
-            BindTileGenerator();
+            BindTileCreator();
         }
 
         private void BindLocalFactories()
@@ -26,10 +26,10 @@ namespace CodeBase.CompositionRoot.MonoInstallers
             Container.Bind(typeof(ILocalFactory<Diamond>)).To(typeof(LocalFactory<Diamond>)).AsSingle();
         }
 
-        private void BindPoolBuilders()
+        private void BindGenericPools()
         {
-            Container.Bind(typeof(IPoolBuilder<Block>)).To(typeof(PoolBuilder<Block>)).AsSingle();
-            Container.Bind(typeof(IPoolBuilder<Diamond>)).To(typeof(PoolBuilder<Diamond>)).AsSingle();
+            Container.Bind(typeof(IGenericPool<Block>)).To(typeof(GenericPool<Block>)).AsSingle();
+            Container.Bind(typeof(IGenericPool<Diamond>)).To(typeof(GenericPool<Diamond>)).AsSingle();
         }
 
         private void BindPools()
@@ -44,7 +44,7 @@ namespace CodeBase.CompositionRoot.MonoInstallers
                 .To<DiamondsPool>()
                 .AsSingle();
         }
-        private void BindTileGenerator()
+        private void BindTileCreator()
         {
             Container
                 .BindInterfacesAndSelfTo<TileCreator>()

@@ -33,6 +33,7 @@ namespace CodeBase.Logic.TileGeneration.Creator
         {
             _lastBlockPosition = Vector3.zero;
             _highDiamondPosition = Vector3.up * 6f;
+            //IsSpawning = true;
         }
 
         public void Init()
