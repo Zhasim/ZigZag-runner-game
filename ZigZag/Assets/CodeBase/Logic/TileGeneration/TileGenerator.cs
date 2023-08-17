@@ -1,5 +1,6 @@
 using System.Collections;
 using CodeBase.Entity;
+using CodeBase.Entity.Blocks;
 using CodeBase.Entity.Diamonds;
 using CodeBase.Infrastructure.Foundation.CoroutineAccess;
 using CodeBase.Infrastructure.Services.Pool.Pools;
