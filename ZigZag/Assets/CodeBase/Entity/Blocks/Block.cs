@@ -6,7 +6,7 @@ namespace CodeBase.Entity.Blocks
 {
     public class Block : PoolableObject
     {
-        protected override float DelayBeforeReturning => 2.0f;
+        protected override float DelayBeforeReturning => 2f;
         protected override float DelayBeforeFalling => 0.1f;
         
         private IBlocksPool _pool;

@@ -1,5 +1,7 @@
+using CodeBase.Data;
 using CodeBase.Entity.Diamonds;
 using CodeBase.Infrastructure.Services.Pool.Builder;
+using CodeBase.Infrastructure.Services.Progress.Registration;
 using CodeBase.StaticData;
 using UnityEngine;
 
@@ -13,9 +15,17 @@ namespace CodeBase.Infrastructure.Services.Pool.Pools
         private const string DiamondsContainer = "DIAMONDS_CONTAINER";
         
         private readonly IGenericPool<Diamond> _genericPool;
+        private readonly IRegistrationService _registrationService;
+        private readonly WorldData _worldData;
 
-        public DiamondsPool(IGenericPool<Diamond> genericPool) => 
+        public DiamondsPool(IGenericPool<Diamond> genericPool,
+            IRegistrationService registrationService,
+            WorldData worldData)
+        {
             _genericPool = genericPool;
+            _registrationService = registrationService;
+            _worldData = worldData;
+        }
 
         public void Init()
         {
@@ -34,11 +44,17 @@ namespace CodeBase.Infrastructure.Services.Pool.Pools
         
         public Diamond RentDiamond()
         {
-            return _genericPool.Rent();
+            var diamond = _genericPool.Rent();
+            _registrationService.RegisterWatchers(diamond.gameObject);
+            diamond.Init(_worldData);
+
+            return diamond;
         }
 
         public void ReturnDiamond(Diamond diamond)
         {
+            _registrationService.UnregisterWatchers(diamond.gameObject);
+            diamond.Init(null);
             _genericPool.Return(diamond);
         }
     }

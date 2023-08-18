@@ -1,6 +1,5 @@
 using CodeBase.Entity.Blocks;
 using CodeBase.Entity.Diamonds;
-using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.Pool.Pools;
 using CodeBase.Infrastructure.Services.Randomizer;
 using UnityEngine;
@@ -14,24 +13,20 @@ namespace CodeBase.Logic.TileGeneration.Creator
         private readonly IBlocksPool _blocksPool;
         private readonly IDiamondsPool _diamondsPool;
         private readonly IRandomService _randomService;
-        private readonly IInputService _inputService;
 
         private Vector3 _lastBlockPosition;
         private Vector3 _highDiamondPosition;
         private Vector3 _lastPlayerPosition;
 
         private Transform _playerTransform;
-        private int _clickCounter;
 
         public TileGenerator(IBlocksPool blocksPool,
             IDiamondsPool diamondsPool,
-            IRandomService randomService,
-            IInputService inputService)
+            IRandomService randomService)
         {
             _blocksPool = blocksPool;
             _diamondsPool = diamondsPool;
             _randomService = randomService;
-            _inputService = inputService;
         }
 
         public void Init(Transform playerTransform)
@@ -54,7 +49,7 @@ namespace CodeBase.Logic.TileGeneration.Creator
             
             if (distanceTraveled >= TileWidth)
             {
-                int tilesToGenerate = Mathf.FloorToInt(distanceTraveled / TileWidth) * 2;
+                int tilesToGenerate = Mathf.FloorToInt(distanceTraveled / TileWidth) + 1;
                 for (int i = 0; i < tilesToGenerate; i++)
                     SpawnTile();
             }
@@ -68,7 +63,7 @@ namespace CodeBase.Logic.TileGeneration.Creator
 
         private void InitSpawn()
         {
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 40; i++)
                 SpawnTile();
         }
 

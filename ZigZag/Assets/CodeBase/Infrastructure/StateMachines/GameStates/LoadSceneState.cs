@@ -19,21 +19,21 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly ILoadingCurtain _loadingCurtain;
         private readonly ILogger _logger;
 
-        private readonly IGameFactory _factory;
+        private readonly IGameFactory _gameFactory;
         private readonly ITileGenerator _tileGenerator;
 
         public LoadSceneState(IGlobalStateMachine stateMachine, 
             ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain,
             ILogger logger,
-            IGameFactory factory,
+            IGameFactory gameFactory,
             ITileGenerator tileGenerator)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _logger = logger;
-            _factory = factory;
+            _gameFactory = gameFactory;
             _tileGenerator = tileGenerator;
         }
 
@@ -53,11 +53,14 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private void InitGameWorld()
         {
             Transform initContainer = new GameObject("INIT_CONTAINER").transform;
-           _factory.CreateInitPlatform(initContainer);
-            Vector3 initPoint = _factory.CreateInitPoint(initContainer).transform.position;
+           _gameFactory.CreateInitPlatform(initContainer);
+            Vector3 initPoint = _gameFactory.CreateInitPoint(initContainer).transform.position;
 
             Transform playerContainer = new GameObject("PLAYER_CONTAINER").transform;
-            GameObject player = _factory.CreatePlayer(initPoint, playerContainer);
+            GameObject player = _gameFactory.CreatePlayer(initPoint, playerContainer);
+            
+            Transform hudContainer = new GameObject("HUD").transform;
+            _gameFactory.CreateHUD(hudContainer);
             
             _tileGenerator.Init(player.transform);
             CameraFollow(player);
