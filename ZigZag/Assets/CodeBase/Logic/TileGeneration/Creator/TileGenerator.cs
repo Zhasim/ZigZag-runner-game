@@ -7,7 +7,7 @@ using Zenject;
 
 namespace CodeBase.Logic.TileGeneration.Creator
 {
-    public class TileCreator : ITileCreator, IInitializable
+    public class TileGenerator : ITileGenerator, IInitializable
     {
         private const float BLOCK_STEP = 4f; 
         
@@ -20,7 +20,7 @@ namespace CodeBase.Logic.TileGeneration.Creator
 
         public bool IsSpawning { get; set; }
 
-        public TileCreator(IBlocksPool blocksPool, 
+        public TileGenerator(IBlocksPool blocksPool, 
             IDiamondsPool diamondsPool,
             IRandomService randomService)
         {
@@ -33,6 +33,7 @@ namespace CodeBase.Logic.TileGeneration.Creator
         {
             _lastBlockPosition = Vector3.zero;
             _highDiamondPosition = Vector3.up * 6f;
+            //IsSpawning = true;
         }
 
         public void Init()

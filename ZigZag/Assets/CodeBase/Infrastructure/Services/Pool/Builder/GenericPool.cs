@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using CodeBase.Infrastructure.Services.Pool.Factory;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Pool.Builder
 {
-    public class PoolBuilder<T> : IPoolBuilder<T> where T : MonoBehaviour 
+    public class GenericPool<T> : IGenericPool<T> where T : MonoBehaviour 
     {
         private string _path;
         private Transform _parentTransform;
@@ -14,36 +15,35 @@ namespace CodeBase.Infrastructure.Services.Pool.Builder
         private bool _expandByDoubling;
 
         private readonly ILocalFactory<T> _localFactory;
-        private readonly Queue<T> objectQueue = new();
+        private readonly Queue<T> _objectsQueue = new();
 
-        public PoolBuilder(ILocalFactory<T> localFactory) => 
+        public GenericPool(ILocalFactory<T> localFactory) => 
             _localFactory = localFactory;
 
-        public PoolBuilder<T> SetPrefabResource(string path)
+        public GenericPool<T> SetPrefabResource(string path)
         {
             _path = path;
             return this;
         }
 
-        public PoolBuilder<T> SetInitialSize(int size)
+        public GenericPool<T> SetInitialSize(int size)
         {
             _initialSize = size;
             return this;
         }
-
-        public PoolBuilder<T> SetMaxSize(int size)
+        public GenericPool<T> SetMaxSize(int size)
         {
             _maxSize = size;
             return this;
         }
 
-        public PoolBuilder<T> ExpandByDoubling(bool expandByDoubling)
+        public GenericPool<T> ExpandByDoubling(bool expandByDoubling)
         {
             _expandByDoubling = expandByDoubling;
             return this;
         }
 
-        public PoolBuilder<T> UnderTransformGroup(Transform parent)
+        public GenericPool<T> UnderTransformGroup(Transform parent)
         {
             _parentTransform = parent;
             return this;
@@ -57,38 +57,46 @@ namespace CodeBase.Infrastructure.Services.Pool.Builder
 
         public T Rent()
         {
-            if (objectQueue.Count == 0)
+            if (TryGetFreeElement(out T obj))
             {
-                if (_expandByDoubling && objectQueue.Count < _maxSize)
-                {
-                    int newSize = Mathf.Min(_maxSize - objectQueue.Count, objectQueue.Count);
-                    for (int i = 0; i < newSize; i++) 
-                        CreateObject();
-                }
-                else
-                {
-                    Debug.LogWarning("CustomObjectPool is empty and cannot expand further.");
-                    return null;
-                }
+                obj = _objectsQueue.Dequeue();
+                obj.gameObject.SetActive(true);
+                return obj;
             }
-
-            T obj = objectQueue.Dequeue();
-            obj.gameObject.SetActive(true);
-            return obj;
+            else
+            {
+                return CreateObject();
+            }
+            
         }
 
         public void Return(T obj)
         {
             obj.gameObject.SetActive(false);
-            objectQueue.Enqueue(obj);
+            _objectsQueue.Enqueue(obj);
         }
 
+        
         private T CreateObject()
         {
             T obj = _localFactory.Create(_path, _parentTransform);
             obj.gameObject.SetActive(false);
-            objectQueue.Enqueue(obj);
+            _objectsQueue.Enqueue(obj);
             return obj;
+        }
+        
+        private bool TryGetFreeElement(out T element)
+        {
+            foreach (var obj in _objectsQueue)
+            {
+                if (!obj.gameObject.activeInHierarchy)
+                {
+                    element = obj;
+                    return true;
+                }
+            }
+            element = null;
+            return false;
         }
     }
 }

@@ -1,4 +1,3 @@
-using CodeBase.Entity;
 using CodeBase.Entity.Blocks;
 using CodeBase.Infrastructure.Services.Pool.Builder;
 using CodeBase.StaticData;
@@ -8,35 +7,35 @@ namespace CodeBase.Infrastructure.Services.Pool.Pools
 {
     public class BlocksPool : IBlocksPool
     {
-        private const int InitialSize = 20;
-        private const int MaxSize = 80;
+        private const int InitialSize = 100;
+        private const int MaxSize = 200;
         private const bool IsExpand = true;
         private const string BlocksContainer = "BLOCKS_CONTAINER";
         
-        private readonly IPoolBuilder<Block> _poolBuilder;
-
-        public BlocksPool(IPoolBuilder<Block> poolBuilder) => 
-            _poolBuilder = poolBuilder;
+        private readonly IGenericPool<Block> _genericPool;
+        
+        public BlocksPool(IGenericPool<Block> genericPool) => 
+            _genericPool = genericPool;
 
         public void Init()
         {
             Transform parent = new GameObject(BlocksContainer).transform;
 
-            _poolBuilder.SetPrefabResource(ResourcePath.BLOCK)
+            _genericPool.SetPrefabResource(ResourcePath.BLOCK)
                 .SetInitialSize(InitialSize)
                 .SetMaxSize(MaxSize)
                 .ExpandByDoubling(IsExpand)
                 .UnderTransformGroup(parent);
             
-            _poolBuilder.Initialize();
+            _genericPool.Initialize();
             
             Debug.Log("BlocksPool initialized");
         }
         
         public Block RentBlock() => 
-            _poolBuilder.Rent();
+            _genericPool.Rent();
 
         public void ReturnBlock(Block block) => 
-            _poolBuilder.Return(block);
+            _genericPool.Return(block);
     }
 }

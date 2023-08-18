@@ -21,21 +21,21 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly ILogger _logger;
 
         private readonly IGameFactory _factory;
-        private readonly ITileCreator _tileCreator;
+        private readonly ITileGenerator _tileGenerator;
 
         public LoadSceneState(IGlobalStateMachine stateMachine, 
             ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain,
             ILogger logger,
             IGameFactory factory,
-            ITileCreator tileCreator)
+            ITileGenerator tileGenerator)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _logger = logger;
             _factory = factory;
-            _tileCreator = tileCreator;
+            _tileGenerator = tileGenerator;
         }
 
         public void Enter(string sceneName)
@@ -61,7 +61,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
             GameObject player = _factory.CreatePlayer(initPoint, playerContainer);
             CameraFollow(player);
                  
-            _tileCreator.Init();
+            _tileGenerator.Init();
             
             _logger.LogInfo("Game World INIT");
         }
