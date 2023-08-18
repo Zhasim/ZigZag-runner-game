@@ -17,7 +17,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly IGlobalStateMachine _globalStateMachine;
         private readonly ILogger _logger;
         private readonly IInputService _input;
-        private readonly ITileCreator _tileCreator;
+        private readonly ITileGenerator _tileGenerator;
         public GameLoopState(IGlobalStateMachine globalStateMachine, 
             ILogger logger,
             IInputService input)

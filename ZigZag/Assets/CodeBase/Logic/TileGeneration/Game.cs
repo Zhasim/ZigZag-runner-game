@@ -7,13 +7,13 @@ namespace CodeBase.Logic.TileGeneration
 {
     public class Game : MonoBehaviour
     {
-        private ITileCreator _tileCreator;
+        private ITileGenerator _tileGenerator;
         private IInputService _inputService;
 
         [Inject]
-        public void Construct(ITileCreator tileCreator, IInputService inputService)
+        public void Construct(ITileGenerator tileGenerator, IInputService inputService)
         {
-            _tileCreator = tileCreator;
+            _tileGenerator = tileGenerator;
             _inputService = inputService;
         }
 
@@ -22,7 +22,7 @@ namespace CodeBase.Logic.TileGeneration
             if (_inputService.GetInputDown())
             {
                 for (int i = 0; i < 3; i++) 
-                    _tileCreator.CreateTile();
+                    _tileGenerator.CreateTile();
             }
         }
     }

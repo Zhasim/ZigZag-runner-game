@@ -17,7 +17,7 @@ namespace CodeBase.CompositionRoot.MonoInstallers
             BindLocalFactories();
             BindGenericPools();
             BindPools();
-            BindTileCreator();
+            BindTileGenerator();
         }
 
         private void BindLocalFactories()
@@ -44,10 +44,10 @@ namespace CodeBase.CompositionRoot.MonoInstallers
                 .To<DiamondsPool>()
                 .AsSingle();
         }
-        private void BindTileCreator()
+        private void BindTileGenerator()
         {
             Container
-                .BindInterfacesAndSelfTo<TileCreator>()
+                .BindInterfacesAndSelfTo<TileGenerator>()
                 .AsSingle();
         }
     }

@@ -1,6 +1,6 @@
 namespace CodeBase.Logic.TileGeneration.Creator
 {
-    public interface ITileCreator
+    public interface ITileGenerator
     {
         void Init();
         void CreateTile();
