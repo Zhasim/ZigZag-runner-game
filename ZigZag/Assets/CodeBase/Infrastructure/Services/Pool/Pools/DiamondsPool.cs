@@ -1,8 +1,9 @@
-using CodeBase.Data;
+using CodeBase.Data.GameLoopData;
 using CodeBase.Entity.Diamonds;
 using CodeBase.Infrastructure.Services.Pool.Builder;
 using CodeBase.Infrastructure.Services.Progress.Registration;
 using CodeBase.StaticData;
+using CodeBase.Tools;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.Pool.Pools
@@ -45,6 +46,7 @@ namespace CodeBase.Infrastructure.Services.Pool.Pools
         public Diamond RentDiamond()
         {
             var diamond = _genericPool.Rent();
+            diamond.GetComponent<UniqueId>().GenerateId();
             _registrationService.RegisterWatchers(diamond.gameObject);
             diamond.Init(_worldData);
 

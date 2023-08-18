@@ -1,3 +1,4 @@
+using CodeBase.Data.GameLoopData;
 using CodeBase.Entity.Blocks;
 using CodeBase.Entity.Diamonds;
 using CodeBase.Infrastructure.Services.Pool.Builder;
@@ -12,10 +13,16 @@ namespace CodeBase.CompositionRoot.MonoInstallers
     {
         public override void InstallBindings()
         {
+            BindWorldData();
             BindLocalFactories();
             BindGenericPools();
             BindPools();
             BindTileGenerator();
+        }
+
+        private void BindWorldData()
+        {
+            Container.Bind<WorldData>().AsSingle();
         }
 
         private void BindLocalFactories()

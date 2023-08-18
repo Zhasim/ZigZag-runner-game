@@ -1,4 +1,5 @@
 using System;
+using CodeBase.Data.GameLoopData;
 
 namespace CodeBase.Data
 {

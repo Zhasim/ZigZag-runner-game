@@ -1,9 +1,16 @@
+using CodeBase.Data.GameLoopData.Entity.Diamonds;
 using UnityEngine;
 
 namespace CodeBase.Data
 {
     public static class DataExtensions
     {
+        public static Vector3Data AsVector3Data(this Vector3 vector3) =>
+            new (vector3.x, vector3.y, vector3.z);
+
+        public static Vector3 AsUnityVector(this Vector3Data vector3Data) =>
+            new (vector3Data.X, vector3Data.Y, vector3Data.Z);
+        
         public static string ToJson(this object obj) =>
                     JsonUtility.ToJson(obj);
         

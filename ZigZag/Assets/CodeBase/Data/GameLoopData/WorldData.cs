@@ -1,6 +1,7 @@
 using System;
+using CodeBase.Data.GameLoopData.Entity.Diamonds;
 
-namespace CodeBase.Data
+namespace CodeBase.Data.GameLoopData
 {
     [Serializable]
     public class WorldData
