@@ -9,6 +9,7 @@ namespace CodeBase.Logic.TileGeneration
     {
         private ITileGenerator _tileGenerator;
         private IInputService _inputService;
+        private bool _inputProcessed;
 
         [Inject]
         public void Construct(ITileGenerator tileGenerator, IInputService inputService)
@@ -16,13 +17,17 @@ namespace CodeBase.Logic.TileGeneration
             _tileGenerator = tileGenerator;
             _inputService = inputService;
         }
-
+        
         private void Update()
         {
-            if (_inputService.GetInputDown())
+            if (_inputService.GetInputDown() && !_inputProcessed)
             {
-                for (int i = 0; i < 3; i++) 
-                    _tileGenerator.CreateTile();
+                _tileGenerator.HandlePlayerInput();
+                _inputProcessed = true;
+            }
+            else if (!_inputService.GetInputDown())
+            {
+                _inputProcessed = false;
             }
         }
     }

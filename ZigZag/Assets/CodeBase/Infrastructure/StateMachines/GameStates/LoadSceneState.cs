@@ -4,7 +4,6 @@ using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.Logic.Camera;
-using CodeBase.Logic.TileGeneration;
 using CodeBase.Logic.TileGeneration.Creator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -59,10 +58,9 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
             Transform playerContainer = new GameObject("PLAYER_CONTAINER").transform;
             GameObject player = _factory.CreatePlayer(initPoint, playerContainer);
-            CameraFollow(player);
-                 
-            _tileGenerator.Init();
             
+            _tileGenerator.Init(player.transform);
+            CameraFollow(player);
             _logger.LogInfo("Game World INIT");
         }
         

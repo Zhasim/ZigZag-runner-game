@@ -1,10 +1,8 @@
-using CodeBase.Entity;
 using CodeBase.Entity.Blocks;
 using CodeBase.Entity.Diamonds;
 using CodeBase.Infrastructure.Services.Pool.Builder;
 using CodeBase.Infrastructure.Services.Pool.Factory;
 using CodeBase.Infrastructure.Services.Pool.Pools;
-using CodeBase.Logic.TileGeneration;
 using CodeBase.Logic.TileGeneration.Creator;
 using Zenject;
 
