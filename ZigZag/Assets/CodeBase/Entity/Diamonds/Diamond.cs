@@ -1,5 +1,7 @@
-using System.Collections;
+using CodeBase.Data;
+using CodeBase.Data.GameLoopData;
 using CodeBase.Infrastructure.Services.Pool.Pools;
+using CodeBase.Infrastructure.Services.Progress.Watchers;
 using UnityEngine;
 using Zenject;
 
@@ -14,13 +16,17 @@ namespace CodeBase.Entity.Diamonds
         
         private IDiamondsPool _pool;
         private bool _dropped;
-        
+        private WorldData _worldData;
+
         protected override float DelayBeforeReturning => 1.0f;
         protected override float DelayBeforeFalling => 0.3f;
         
         [Inject]
         public void Construct(IDiamondsPool pool) => 
             _pool = pool;
+
+        public void Initialize(WorldData worldData) => 
+            _worldData = worldData;
 
         protected override void Start()
         {
@@ -39,12 +45,18 @@ namespace CodeBase.Entity.Diamonds
         {
             if(_dropped)
                 return;
-            
+
             if (obj.CompareTag(PlayerTag))
             {
                 _dropped = true;
-                ReturnToPool();
-            }
+                Collect();
+            } 
+        }
+
+        private void Collect()
+        {
+            _worldData.DiamondsData.Collect();
+            ReturnToPool();
         }
 
         private void OnTriggerExited(Collider obj)
@@ -58,5 +70,10 @@ namespace CodeBase.Entity.Diamonds
         
         protected override void ReturnToPool() => 
             _pool.ReturnDiamond(this);
+
+        public void ReadProgress(OverallProgress progress)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

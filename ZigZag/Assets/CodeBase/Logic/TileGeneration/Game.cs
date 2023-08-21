@@ -19,11 +19,8 @@ namespace CodeBase.Logic.TileGeneration
 
         private void Update()
         {
-            if (_inputService.GetInputDown())
-            {
-                for (int i = 0; i < 3; i++) 
-                    _tileGenerator.CreateTile();
-            }
+            if (_inputService.GetInputDown()) 
+                _tileGenerator.HandlePlayerInput();
         }
     }
 }

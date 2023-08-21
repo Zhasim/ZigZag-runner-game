@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CodeBase.Infrastructure.Services.Pool.Factory;
 using UnityEngine;
@@ -54,20 +53,26 @@ namespace CodeBase.Infrastructure.Services.Pool.Builder
             for (int i = 0; i < _initialSize; i++) 
                 CreateObject();
         }
-
+        
         public T Rent()
         {
             if (TryGetFreeElement(out T obj))
             {
-                obj = _objectsQueue.Dequeue();
                 obj.gameObject.SetActive(true);
                 return obj;
             }
             else
             {
-                return CreateObject();
+                if (_objectsQueue.Count <= 1)
+                {
+                    ExpandByDoubling();
+                    return _objectsQueue.Dequeue();
+                }
+                else
+                {
+                    return CreateObject();
+                }
             }
-            
         }
 
         public void Return(T obj)
@@ -97,6 +102,17 @@ namespace CodeBase.Infrastructure.Services.Pool.Builder
             }
             element = null;
             return false;
+        }
+        
+        private void ExpandByDoubling()
+        {
+            if (_expandByDoubling && _maxSize > _objectsQueue.Count)
+            {
+                int newSize = Mathf.Min(_maxSize, _objectsQueue.Count * 2);
+
+                for (int i = _objectsQueue.Count; i < newSize; i++) 
+                    CreateObject();
+            }
         }
     }
 }

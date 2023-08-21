@@ -1,6 +1,8 @@
 using CodeBase.Infrastructure.ResourceLoad;
 using CodeBase.Infrastructure.Services.Progress.Registration;
+using CodeBase.Infrastructure.Services.Progress.Service;
 using CodeBase.StaticData;
+using CodeBase.UI.Elements;
 using UnityEngine;
 using Zenject;
 
@@ -10,14 +12,17 @@ namespace CodeBase.Infrastructure.Services.Factory
     {
         private readonly IResourceLoader _resourceLoader;
         private readonly IInstantiator _instantiator;
+        private readonly IProgressService _progressService;
         private readonly IRegistrationService _registrationService;
-
-        public GameFactory(IResourceLoader resourceLoader,
+        
+        public GameFactory(IResourceLoader resourceLoader, 
             IInstantiator instantiator,
+            IProgressService progressService,
             IRegistrationService registrationService)
         {
             _resourceLoader = resourceLoader;
             _instantiator = instantiator;
+            _progressService = progressService;
             _registrationService = registrationService;
         }
 
@@ -37,10 +42,21 @@ namespace CodeBase.Infrastructure.Services.Factory
             return instance;
         }
 
-        public GameObject CreateInitPlatform(Transform parent)
+        public GameObject CreateInitPlatform(Transform container)
         {
             GameObject prefab = _resourceLoader.Load(ResourcePath.INIT_PLATFORM);
-            GameObject instance = _instantiator.InstantiatePrefab(prefab, parent);
+            GameObject instance = _instantiator.InstantiatePrefab(prefab, container);
+
+            return instance;
+        }
+
+        public GameObject CreateHUD(Transform container)
+        {
+            GameObject prefab = _resourceLoader.Load(ResourcePath.HUD);
+            GameObject instance = _instantiator.InstantiatePrefab(prefab, container);
+            
+            instance.GetComponentInChildren<DiamondsCounter>()
+                .Construct(_progressService.OverallProgress.WorldData);
 
             return instance;
         }

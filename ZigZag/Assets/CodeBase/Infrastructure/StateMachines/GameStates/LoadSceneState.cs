@@ -1,6 +1,7 @@
 using CodeBase.Infrastructure.Foundation.Curtain;
 using CodeBase.Infrastructure.Foundation.Loader;
 using CodeBase.Infrastructure.Services.Factory;
+using CodeBase.Infrastructure.Services.Progress.Service;
 using CodeBase.Infrastructure.StateMachines.Machines;
 using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.Logic.Camera;
@@ -20,22 +21,26 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private readonly ILoadingCurtain _loadingCurtain;
         private readonly ILogger _logger;
 
-        private readonly IGameFactory _factory;
+        
+        private readonly IProgressService _progressService;
+        private readonly IGameFactory _gameFactory;
         private readonly ITileGenerator _tileGenerator;
 
         public LoadSceneState(IGlobalStateMachine stateMachine, 
             ISceneLoader sceneLoader,
             ILoadingCurtain loadingCurtain,
             ILogger logger,
-            IGameFactory factory,
-            ITileGenerator tileGenerator)
+            IGameFactory gameFactory,
+            ITileGenerator tileGenerator,
+            IProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _logger = logger;
-            _factory = factory;
+            _gameFactory = gameFactory;
             _tileGenerator = tileGenerator;
+            _progressService = progressService;
         }
 
         public void Enter(string sceneName)
@@ -54,14 +59,17 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private void InitGameWorld()
         {
             Transform initContainer = new GameObject("INIT_CONTAINER").transform;
-           _factory.CreateInitPlatform(initContainer);
-            Vector3 initPoint = _factory.CreateInitPoint(initContainer).transform.position;
+           _gameFactory.CreateInitPlatform(initContainer);
+            Vector3 initPoint = _gameFactory.CreateInitPoint(initContainer).transform.position;
 
             Transform playerContainer = new GameObject("PLAYER_CONTAINER").transform;
-            GameObject player = _factory.CreatePlayer(initPoint, playerContainer);
+            GameObject player = _gameFactory.CreatePlayer(initPoint, playerContainer);
             CameraFollow(player);
                  
-            _tileGenerator.Init();
+            Transform hudContainer = new GameObject("HUD").transform;
+            _gameFactory.CreateHUD(hudContainer);
+            
+            _tileGenerator.Init(_progressService.OverallProgress.WorldData, player.transform);
             
             _logger.LogInfo("Game World INIT");
         }

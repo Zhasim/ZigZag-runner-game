@@ -6,6 +6,7 @@ namespace CodeBase.Infrastructure.Services.Factory
     {
         GameObject CreatePlayer(Vector3 at, Transform container);
         GameObject CreateInitPoint(Transform container);
-        GameObject CreateInitPlatform(Transform parent);
+        GameObject CreateInitPlatform(Transform container);
+        GameObject CreateHUD(Transform container);
     }
 }
