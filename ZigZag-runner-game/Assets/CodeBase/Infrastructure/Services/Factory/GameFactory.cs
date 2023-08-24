@@ -56,8 +56,8 @@ namespace CodeBase.Infrastructure.Services.Factory
             GameObject instance = _instantiator.InstantiatePrefab(prefab, container);
             
             instance.GetComponentInChildren<DiamondsCounter>()
-                .Construct(_progressService.OverallProgress.WorldData);
-
+                .Init(_progressService.OverallProgress.WorldData);
+        
             return instance;
         }
     }

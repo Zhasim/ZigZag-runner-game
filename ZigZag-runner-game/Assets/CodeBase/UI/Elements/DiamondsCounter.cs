@@ -1,4 +1,3 @@
-using CodeBase.Data;
 using CodeBase.Data.GameLoopData;
 using TMPro;
 using UnityEngine;
@@ -10,7 +9,7 @@ namespace CodeBase.UI.Elements
         public TextMeshProUGUI Counter;
         private WorldData _worldData;
 
-        public void Construct(WorldData worldData)
+        public void Init(WorldData worldData)
         {
             _worldData = worldData;
             _worldData.DiamondsData.Changed += UpdateCounter;
@@ -18,9 +17,7 @@ namespace CodeBase.UI.Elements
             UpdateCounter();
         }
         
-        private void UpdateCounter()
-        {
+        private void UpdateCounter() => 
             Counter.text = $"{_worldData.DiamondsData.Collected}";
-        }
     }
 }

@@ -7,10 +7,10 @@ namespace CodeBase.Data.GameLoopData
     public class WorldData
     {
         public DiamondsData DiamondsData;
-
+  
         public WorldData()
         {
             DiamondsData = new DiamondsData();
-        }
+  }
     }
 }

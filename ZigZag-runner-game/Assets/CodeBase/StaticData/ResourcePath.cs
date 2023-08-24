@@ -14,6 +14,6 @@ namespace CodeBase.StaticData
         public const string INIT_POINT = "Prefabs/Gameplay/InitPoint";
         
         // - UI
-        public const string HUD = "Prefabs/UI/HUD/HUD";
+        public const string HUD = "Prefabs/UI/HUD";
     }
 }

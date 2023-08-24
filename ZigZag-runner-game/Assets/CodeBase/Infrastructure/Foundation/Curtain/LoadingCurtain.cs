@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Foundation.Curtain
@@ -7,27 +8,22 @@ namespace CodeBase.Infrastructure.Foundation.Curtain
     {
         public CanvasGroup Curtain;
 
-        private void Awake() => 
+        private void Awake()
+        {
             DontDestroyOnLoad(this);
-
+            Curtain.alpha = 1;
+        }
+        
         public void Show()
         {
             gameObject.SetActive(true);
-            Curtain.alpha = 1;
+            Curtain.DOFade(1.0f, 0.3f);
         }
 
-        public void Hide() => 
-            StartCoroutine(DoFadeIn());
-
-        private IEnumerator DoFadeIn()
+        public void Hide()
         {
-            while (Curtain.alpha > 0)
-            {
-                Curtain.alpha -= 0.03f;
-                yield return new WaitForSeconds(0.03f);
-            }
-            
-            gameObject.SetActive(false);
+            Curtain.DOFade(0.0f, 0.3f).OnComplete(() => 
+                gameObject.SetActive(false));
         }
     }
 }
