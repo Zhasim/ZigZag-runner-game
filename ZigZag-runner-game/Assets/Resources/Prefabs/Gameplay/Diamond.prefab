@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 8997411200929071616}
   - component: {fileID: 2644955480361464582}
   - component: {fileID: -4604641504995220651}
+  - component: {fileID: 195186909350771135}
   m_Layer: 0
   m_Name: Diamond
   m_TagString: Dimond
@@ -260,3 +261,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dropZone: {fileID: 7439030186667150954}
   _fallZone: {fileID: 512216679855150774}
+--- !u!114 &195186909350771135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8997411200929071618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64f77205534143498965ef23d8f64c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
