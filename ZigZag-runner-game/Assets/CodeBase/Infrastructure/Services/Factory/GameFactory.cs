@@ -3,6 +3,7 @@ using CodeBase.Infrastructure.Services.Progress.Registration;
 using CodeBase.Infrastructure.Services.Progress.Service;
 using CodeBase.StaticData;
 using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;
 
@@ -14,16 +15,19 @@ namespace CodeBase.Infrastructure.Services.Factory
         private readonly IInstantiator _instantiator;
         private readonly IProgressService _progressService;
         private readonly IRegistrationService _registrationService;
+        private readonly IWindowService _windowService;
         
         public GameFactory(IResourceLoader resourceLoader, 
             IInstantiator instantiator,
             IProgressService progressService,
-            IRegistrationService registrationService)
+            IRegistrationService registrationService,
+            IWindowService windowService)
         {
             _resourceLoader = resourceLoader;
             _instantiator = instantiator;
             _progressService = progressService;
             _registrationService = registrationService;
+            _windowService = windowService;
         }
 
         public GameObject CreatePlayer(Vector3 at, Transform container)
@@ -57,6 +61,9 @@ namespace CodeBase.Infrastructure.Services.Factory
             
             instance.GetComponentInChildren<DiamondsCounter>()
                 .Init(_progressService.OverallProgress.WorldData);
+            
+            foreach (OpenWindowButton openWindowButton in instance.GetComponentsInChildren<OpenWindowButton>())
+                openWindowButton.Construct(_windowService);
         
             return instance;
         }

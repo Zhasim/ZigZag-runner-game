@@ -1,12 +1,27 @@
+using System.Collections.Generic;
+using System.Linq;
+using CodeBase.StaticData.Windows;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {
-        public void Initialize()
+        private const string StaticDataWindows = "StaticData/UI/WindowStaticData";
+        
+        private Dictionary<WindowId,WindowConfig> _windowConfigs;
+
+        public void Load()
         {
-            Debug.Log("Static data initialized.");
+            _windowConfigs = Resources
+                .Load<WindowStaticData>(StaticDataWindows)
+                .Configs
+                .ToDictionary(x => x.WindowId, x => x);
         }
+        
+        public WindowConfig ForWindow(WindowId windowId) =>
+            _windowConfigs.TryGetValue(windowId, out WindowConfig windowConfig) 
+                ? windowConfig 
+                : null;
     }
 }

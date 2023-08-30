@@ -1,5 +1,6 @@
 using System;
 using CodeBase.UI.Windows;
+using UnityEngine.Serialization;
 
 namespace CodeBase.StaticData.Windows
 {
@@ -7,6 +8,6 @@ namespace CodeBase.StaticData.Windows
     public class WindowConfig
     {
         public WindowId WindowId;
-        public WindowBase prefab;
+        public WindowBase Prefab;
     }
 }

@@ -1,6 +1,7 @@
 using CodeBase.Infrastructure.ResourceLoad;
 using CodeBase.Infrastructure.Services.Factory;
 using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
 using Zenject;
 
 namespace CodeBase.CompositionRoot.MonoInstallers
@@ -11,9 +12,19 @@ namespace CodeBase.CompositionRoot.MonoInstallers
         {
             BindResourceLoader();
 
-            BindGameFactory();
-            
             BindUIFactory();
+
+            BindWindowService();
+            
+            BindGameFactory();
+        }
+
+        private void BindWindowService()
+        {
+            Container
+                .Bind<IWindowService>()
+                .To<WindowService>()
+                .AsSingle();
         }
 
         private void BindResourceLoader()

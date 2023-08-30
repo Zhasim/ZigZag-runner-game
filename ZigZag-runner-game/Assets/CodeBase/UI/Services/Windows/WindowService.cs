@@ -16,11 +16,20 @@ namespace CodeBase.UI.Services.Windows
             {
                 case WindowId.Unknown:
                     break;
-                case WindowId.Win:
-                    _uiFactory.CreateWinScreen();
-                    break;
                 case WindowId.Lose:
                     _uiFactory.CreateLoseScreen();
+                    break;
+                case WindowId.Pause:
+                    _uiFactory.CreatePauseScreen();
+                    break;
+                case WindowId.Settings:
+                    _uiFactory.CreateSettingsScreen();
+                    break;
+                case WindowId.Leave:
+                    _uiFactory.CreateLeaveScreen();
+                    break;
+                case WindowId.Ranking:
+                    _uiFactory.CreateRankingScreen();
                     break;
             }
         }

@@ -38,7 +38,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
         private void InitServices()
         {
             _adsService.Initialize();
-            _staticDataService.Initialize();
+            _staticDataService.Load();
         }
         
         public void Exit() => 

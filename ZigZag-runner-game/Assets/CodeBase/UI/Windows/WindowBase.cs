@@ -8,8 +8,7 @@ namespace CodeBase.UI.Windows
 {
     public abstract class WindowBase : MonoBehaviour
     {
-        public Button closeButton;
-        
+        public Button CloseButton;
         protected IProgressService ProgressService;
         protected OverallProgress Progress => ProgressService.OverallProgress;
 
@@ -29,7 +28,7 @@ namespace CodeBase.UI.Windows
             CleanUp();
 
         protected virtual void OnAwake() => 
-            closeButton.onClick.AddListener(() => Destroy(gameObject));
+            CloseButton.onClick.AddListener(() => Destroy(gameObject));
         
         
         protected virtual void Init() {}

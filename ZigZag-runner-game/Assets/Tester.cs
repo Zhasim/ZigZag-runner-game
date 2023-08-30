@@ -6,6 +6,7 @@ public class Tester : MonoBehaviour
     [SerializeField] private GameObject _prefabTile;
     [SerializeField] private GameObject _prefabCube;
     
+    
     private void Update()
     {
         Profiler.BeginSample("TileTester");

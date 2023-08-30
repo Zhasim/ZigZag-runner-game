@@ -46,6 +46,9 @@ namespace CodeBase.Logic.TileGeneration.Creator
         
         public void HandlePlayerInput()
         {
+            if (_playerTransform == null)
+                return;
+            
             Vector3 position = _playerTransform.position;
             float distanceTraveled = Vector3.Distance(position, _lastPlayerPosition);
             _lastPlayerPosition = position;
