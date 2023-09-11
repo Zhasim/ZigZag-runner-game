@@ -15,6 +15,6 @@ namespace CodeBase.StaticData
         
         // - UI
         public const string HUD = "Prefabs/UI/HUD";
-        private const string UIRoot = "VALUE";
+        public const string UIRoot = "Prefabs/UI/UIRoot";
     }
 }

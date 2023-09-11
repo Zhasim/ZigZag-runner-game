@@ -7,6 +7,7 @@ using CodeBase.Infrastructure.StateMachines.States;
 using CodeBase.Logic.Camera;
 using CodeBase.Logic.TileGeneration;
 using CodeBase.Logic.TileGeneration.Creator;
+using CodeBase.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -23,6 +24,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
         
         private readonly IProgressService _progressService;
+        private readonly IUIFactory _uiFactory;
         private readonly IGameFactory _gameFactory;
         private readonly ITileGenerator _tileGenerator;
 
@@ -32,7 +34,8 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
             ILogger logger,
             IGameFactory gameFactory,
             ITileGenerator tileGenerator,
-            IProgressService progressService)
+            IProgressService progressService,
+            IUIFactory uiFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -41,6 +44,7 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
             _gameFactory = gameFactory;
             _tileGenerator = tileGenerator;
             _progressService = progressService;
+            _uiFactory = uiFactory;
         }
 
         public void Enter(string sceneName)
@@ -58,6 +62,8 @@ namespace CodeBase.Infrastructure.StateMachines.GameStates
 
         private void InitGameWorld()
         {
+            _uiFactory.CreateUIRoot();
+            
             Transform initContainer = new GameObject("INIT_CONTAINER").transform;
            _gameFactory.CreateInitPlatform(initContainer);
             Vector3 initPoint = _gameFactory.CreateInitPoint(initContainer).transform.position;

@@ -9,7 +9,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
     {
         private const string StaticDataWindows = "StaticData/UI/WindowStaticData";
         
-        private Dictionary<WindowId,WindowConfig> _windowConfigs;
+        private Dictionary<WindowId, WindowConfig> _windowConfigs;
 
         public void Load()
         {
